@@ -24,9 +24,9 @@ Built for:
 
 # Manage your agile ecosystem directly from the command line:
 
-kvasar epic list
-kvasar feature create
-kvasar pi status
-kvasar sprint capacity
-kvasar ai breakdown EPIC-123
-kvasar jira sync
+kvasar epic list  
+kvasar feature create  
+kvasar pi status  
+kvasar sprint capacity  
+kvasar ai breakdown EPIC-123  
+kvasar jira sync  
