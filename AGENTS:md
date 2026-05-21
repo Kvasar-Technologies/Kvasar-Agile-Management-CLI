@@ -1,0 +1,215 @@
+# AI Agent Guide — Kvasar CLI
+
+> This file helps AI agents (Claude, GPT, Gemini, Cursor, OpenClaw, open-source models, etc.) install, authenticate, and use the Kvasar CLI to manage agile entities — epics, features, ARTs, PIs, sprints, teams, risks, dependencies, capacities, and AI workflows — via the Kvasar Agile Management API.
+
+## Quick Start
+
+```bash
+# Install globally
+npm install -g kvasar-cli
+
+# Authenticate
+export KVASAR_API_TOKEN="kvs_xxxxx"
+
+# Verify it works
+kvasar epic list
+```
+
+**Requirements:** Node.js 18+
+
+---
+
+## Authentication
+
+Create an API token inside Kvasar Agile Management.
+
+Set your access token:
+
+```bash
+export KVASAR_API_TOKEN="kvs_xxxxx"
+```
+
+Or pass it directly:
+
+```bash
+kvasar epic list --access-token "kvs_xxxxx"
+```
+
+---
+
+## Output Format
+
+All commands output JSON to stdout by default.
+
+```bash
+kvasar epic list
+
+kvasar epic list --pretty
+
+kvasar epic list --quiet
+```
+
+Exit codes:
+- `0` = success
+- `1` = error
+
+---
+
+## Core Command Groups
+
+### epic
+
+Manage epics.
+
+```bash
+list
+get
+create
+update
+delete
+search
+breakdown
+```
+
+### feature
+
+Manage features.
+
+```bash
+list
+get
+create
+update
+delete
+assign
+estimate
+```
+
+### sprint
+
+Manage sprints.
+
+```bash
+list
+capacity
+status
+planning
+```
+
+### pi
+
+Manage Program Increments.
+
+```bash
+list
+status
+risks
+objectives
+dependencies
+```
+
+### art
+
+Manage Agile Release Trains.
+
+```bash
+list
+teams
+capacity
+sync
+```
+
+### ai
+
+AI-powered agile workflows.
+
+```bash
+breakdown
+refine
+summarize
+risks
+dependencies
+plan
+```
+
+---
+
+## Example Workflows
+
+### Create an Epic
+
+```bash
+kvasar epic create \
+  --title "Payment Integration" \
+  --description "Integrate Stripe Connect into onboarding"
+```
+
+### Generate Features with AI
+
+```bash
+kvasar ai breakdown EPIC-123
+```
+
+### Analyze Sprint Capacity
+
+```bash
+kvasar sprint capacity --team backend
+```
+
+### PI Risk Analysis
+
+```bash
+kvasar ai risks PI-12
+```
+
+### Sync with Jira
+
+```bash
+kvasar jira sync
+```
+
+---
+
+## MCP Server
+
+The CLI includes an MCP server for AI agents.
+
+```bash
+kvasar mcp
+```
+
+### MCP Config
+
+```json
+{
+  "mcpServers": {
+    "kvasar": {
+      "command": "npx",
+      "args": ["kvasar-cli", "mcp"],
+      "env": {
+        "KVASAR_API_TOKEN": "kvs_xxxxx"
+      }
+    }
+  }
+}
+```
+
+---
+
+## Tips for AI Agents
+
+1. Use `--help` before guessing commands
+2. Parse JSON output directly
+3. Use `--pretty` only for humans
+4. Use `--quiet` for automation
+5. Use AI workflows for planning and refinement
+6. Use sprint and PI analysis commands before planning
+7. Kvasar is SAFe-native and optimized for enterprise agile orchestration
+
+---
+
+## Vision
+
+Kvasar CLI is not just a CLI.
+
+It is an AI-native agile orchestration layer for enterprise software delivery.
