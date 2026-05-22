@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import { registerAllCommands } from './commands/index.js';
+import { authService } from './core/auth.js';
 
 const program = new Command();
 
@@ -33,4 +34,9 @@ program
 
 registerAllCommands(program);
 
+// Handle access token override
 program.parse();
+const opts = program.opts();
+if (opts.accessToken) {
+  authService.setOverrideToken(opts.accessToken);
+}

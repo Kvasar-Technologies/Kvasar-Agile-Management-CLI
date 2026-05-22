@@ -1,16 +1,14 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
-import { allCommands } from '../commands/index.js';
-import { resolveAccessToken } from '../core/auth.js';
-import { KvasarClient } from '../core/client.js';
+import { allCommands } from './commands/index.js';
+import { resolveAccessToken } from './core/auth.js';
+import { KvasarClient } from './core/client.js';
 
 export async function startMcpServer(): Promise<void> {
   const accessToken = await resolveAccessToken();
 
-  const client = new KvasarClient({
-    accessToken,
-  });
+  const client = new KvasarClient(accessToken);
 
   const server = new McpServer({
     name: 'kvasar',
