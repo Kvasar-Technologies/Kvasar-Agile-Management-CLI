@@ -1,85 +1,54 @@
 import { Command } from 'commander';
+
+// Auth commands
 import { loginCommand } from './auth/login.js';
 import { logoutCommand } from './auth/logout.js';
 import { whoamiCommand } from './auth/whoami.js';
-import { authService } from '../core/auth.js';
 
-// Callable function imports for MCP
-import { executeLogin } from './auth/login.js';
-import { executeLogout } from './auth/logout.js';
-import { executeWhoami } from './auth/whoami.js';
+// Resource commands
+import { valueStreamsCommand } from './value-streams.js';
+import { usersCommand } from './users.js';
+import { teamsCommand } from './teams.js';
+import { strategicThemesCommand } from './strategic-themes.js';
+import { solutionsCommand } from './solutions.js';
+import { roadmapsCommand } from './roadmaps.js';
+import { portfoliosCommand } from './portfolios.js';
+import { pisCommand } from './pis.js';
+import { organizationsCommand } from './organizations.js';
+import { itemsCommand } from './items.js';
+// import { groupsCommand } from './groups.js'; // Skipped for now - complex polymorphic types
+import { kpisCommand } from './kpis.js';
+import { kanbansCommand } from './kanbans.js';
+import { objectivesCommand } from './objectives.js';
+import { artsCommand } from './arts.js';
+import { authChangeCommand } from './auth-change.js';
+import { teammembersCommand } from './teammembers.js';
 
 /**
  * Register all CLI commands
  */
 export function registerAllCommands(program: Command): void {
-  // Auth commands as top-level
+  // Auth top-level commands
   program.addCommand(loginCommand);
   program.addCommand(logoutCommand);
   program.addCommand(whoamiCommand);
-}
 
-/**
- * MCP Tool definitions
- * These allow independent execution without Commander
- */
-export const allCommands: Array<{
-  name: string;
-  description: string;
-  inputSchema: any;
-  handler: (args: Record<string, unknown>, client: any) => Promise<any>;
-}> = [
-  {
-    name: 'login',
-    description: 'Authenticate with Kvasar using browser-based OAuth',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        force: { type: 'boolean' }
-      }
-    },
-    handler: async (args, client) => {
-      const force = args.force as boolean | undefined;
-      if (!force && authService.isAuthenticated()) {
-        const user = await authService.whoami();
-        return {
-          success: false,
-          message: 'Already authenticated',
-          user
-        };
-      }
-      await executeLogin({ force });
-      const user = await authService.whoami();
-      return { success: true, user };
-    }
-  },
-  {
-    name: 'logout',
-    description: 'Log out and clear stored credentials',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        keepTokens: { type: 'boolean' }
-      }
-    },
-    handler: async (args, client) => {
-      const keepTokens = args.keepTokens as boolean | undefined;
-      await executeLogout({ keepTokens });
-      return { success: true };
-    }
-  },
-  {
-    name: 'whoami',
-    description: 'Display information about the authenticated user',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        json: { type: 'boolean' }
-      }
-    },
-    handler: async (args, client) => {
-      const result = await executeWhoami();
-      return result;
-    }
-  },
-];
+  // Resource command groups
+  program.addCommand(valueStreamsCommand);
+  program.addCommand(usersCommand);
+  program.addCommand(teamsCommand);
+  program.addCommand(strategicThemesCommand);
+  program.addCommand(solutionsCommand);
+  program.addCommand(roadmapsCommand);
+  program.addCommand(portfoliosCommand);
+  program.addCommand(pisCommand);
+  program.addCommand(organizationsCommand);
+  program.addCommand(itemsCommand);
+  // program.addCommand(groupsCommand); // Skipped for now - complex polymorphic types
+  program.addCommand(kpisCommand);
+  program.addCommand(kanbansCommand);
+  program.addCommand(objectivesCommand);
+  program.addCommand(artsCommand);
+  program.addCommand(authChangeCommand);
+  program.addCommand(teammembersCommand);
+}
