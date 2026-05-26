@@ -5,3 +5,4 @@ dist/
 .env.*
 
 BUILD_PROJECT.md
+NPM_PUBLISH.md
