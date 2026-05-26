@@ -297,9 +297,14 @@ export class KvasarClient {
     return this.patch(`/api/v1/items/${id}`, body);
   }
 
-  async addItemRelation(featureId: string, relation: any): Promise<any> {
-    return this.put(`/api/v1/items/${featureId}/relations`, relation);
-  }
+   async addItemRelation(featureId: string, relation: any): Promise<any> {
+     return this.put(`/api/v1/items/${featureId}/relations`, relation);
+   }
+
+   // ========== Epics ==========
+   async listEpics(): Promise<any> {
+     return this.get('/api/v1/items/epics/');
+   }
 
   // ========== Groups ==========
   async listGroups(): Promise<any> {
