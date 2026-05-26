@@ -1,10 +1,10 @@
 {
   "name": "kvasar-cli",
   "version": "0.1.0",
-   "description": "AI-native CLI and MCP server for Kvasar Agile Management — epics, features, PIs, ARTs, sprint planning, AI workflows, and Jira integrations",
+  "description": "AI-native CLI and MCP server for Kvasar Agile Management — epics, features, PIs, ARTs, sprint planning, AI workflows, and Jira integrations",
   "type": "module",
   "bin": {
-    "hubspot": "dist/index.js"
+    "kvasar": "dist/index.js"
   },
   "files": [
     "dist",
@@ -19,7 +19,7 @@
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
-    "keywords": [
+  "keywords": [
     "kvasar",
     "kvasar-agile-management",
     "agile",

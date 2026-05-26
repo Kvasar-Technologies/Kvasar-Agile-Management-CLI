@@ -134,26 +134,23 @@ export async function executeDeviceFlow(
 
   // Poll for token with timeout
   const timeoutMs = CONFIG.deviceFlow.pollTimeoutMs;
-  const startTime = Date.now();
+  let timeoutHandle: ReturnType<typeof setTimeout> | undefined;
 
-  // Create a promise with timeout
-  const pollPromise = pollForToken(deviceData.device_code, signal);
-
-  // Wrap with timeout
   const timeoutPromise = new Promise<never>((_, reject) => {
-    setTimeout(() => {
+    timeoutHandle = setTimeout(() => {
       reject(new Error('Authentication timeout: User did not complete within 60 minutes'));
     }, timeoutMs);
   });
 
   try {
-    return await Promise.race([pollPromise, timeoutPromise]);
-  } catch (error: any) {
-    if (error.message.includes('timeout')) {
-      throw error;
+    const result = await Promise.race([pollForToken(deviceData.device_code, signal), timeoutPromise]);
+    if (timeoutHandle) {
+      clearTimeout(timeoutHandle);
     }
-    if (error.message.includes('cancelled')) {
-      throw error;
+    return result;
+  } catch (error: any) {
+    if (timeoutHandle) {
+      clearTimeout(timeoutHandle);
     }
     throw error;
   }

@@ -16,9 +16,19 @@ export interface AuthTokens {
 export class AuthService {
   private currentTokens: AuthTokens | null = null;
   private overrideToken: string | null = null;
+  private initialized: boolean = false;
 
   constructor() {
-    this.loadTokensFromStorage();
+    // Don't load tokens automatically; call initialize() explicitly
+  }
+
+  /**
+   * Initialize the auth service by loading tokens from storage
+   */
+  async initialize(): Promise<void> {
+    if (this.initialized) return;
+    await this.loadTokensFromStorage();
+    this.initialized = true;
   }
 
   /**
@@ -30,10 +40,10 @@ export class AuthService {
     const expiresAt = await tokenStore.getExpiresAt();
     const idToken = await tokenStore.getIdToken();
 
-    if (accessToken && refreshToken && expiresAt) {
+    if (accessToken && expiresAt) {
       this.currentTokens = {
         accessToken,
-        refreshToken,
+        refreshToken: refreshToken || '',
         ...(idToken && { idToken }),
         expiresAt,
       };
