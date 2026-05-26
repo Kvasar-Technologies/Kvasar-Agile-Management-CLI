@@ -11,7 +11,6 @@ import { usersCommand } from './users.js';
 import { teamsCommand } from './teams.js';
 import { strategicThemesCommand } from './strategic-themes.js';
 import { solutionsCommand } from './solutions.js';
-import { roadmapsCommand } from './roadmaps.js';
 import { portfoliosCommand } from './portfolios.js';
 import { pisCommand } from './pis.js';
 import { organizationsCommand } from './organizations.js';
@@ -22,7 +21,6 @@ import { kanbansCommand } from './kanbans.js';
 import { objectivesCommand } from './objectives.js';
 import { artsCommand } from './arts.js';
 import { authChangeCommand } from './auth-change.js';
-import { teammembersCommand } from './teammembers.js';
 
 /**
  * Register all CLI commands
@@ -39,7 +37,6 @@ export function registerAllCommands(program: Command): void {
   program.addCommand(teamsCommand);
   program.addCommand(strategicThemesCommand);
   program.addCommand(solutionsCommand);
-  program.addCommand(roadmapsCommand);
   program.addCommand(portfoliosCommand);
   program.addCommand(pisCommand);
   program.addCommand(organizationsCommand);
@@ -50,5 +47,4 @@ export function registerAllCommands(program: Command): void {
   program.addCommand(objectivesCommand);
   program.addCommand(artsCommand);
   program.addCommand(authChangeCommand);
-  program.addCommand(teammembersCommand);
 }

@@ -90,7 +90,6 @@ All commands support:
 - `kvasar strategic-themes` - Full CRUD + keyresults, budgetdistribution
 - `kvasar solutions` - Full CRUD + relations
 - `kvasar pis` - Program Increments (get, update, delete, add-sprint)
-- `kvasar roadmaps` - List, create, update
 - `kvasar portfolios` - List, create, update
 - `kvasar organizations` - Get, update, delete, patch
 - `kvasar items` - Get, update, delete, patch, add-relation (for epics, features, stories, etc.)
@@ -100,9 +99,7 @@ All commands support:
 - `kvasar kpis` - List, create, update
 - `kvasar kanbans` - List, create, update (portfolio, program, solution, team)
 - `kvasar objectives` - List, update
-- `kvasar teammembers` - List, create
 
-**Skipped**: `groups` - polymorphic types need separate commands.
 
 ## Development
 
