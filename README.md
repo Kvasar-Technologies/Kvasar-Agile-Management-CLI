@@ -76,6 +76,10 @@ kvasar solutions add-relation <id> --file relation.json
 kvasar teams list
 kvasar teams create --file data.json
 
+# Epics
+kvasar epics list
+kvasar epics list --organization <org-id> --portfolio <portfolio-id> --state <state>
+
 # And many more...
 ```
 
@@ -93,6 +97,7 @@ All commands support:
 - `kvasar portfolios` - List, create, update
 - `kvasar organizations` - Get, update, delete, patch
 - `kvasar items` - Get, update, delete, patch, add-relation (for epics, features, stories, etc.)
+- `kvasar epics` - List epics with filtering (organization, portfolio, state)
 - `kvasar teams` - List, create, update
 - `kvasar users` - List, create, update
 - `kvasar arts` - List, create, update (Agile Release Trains)

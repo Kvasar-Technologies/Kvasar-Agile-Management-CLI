@@ -21,6 +21,7 @@ import { kanbansCommand } from './kanbans.js';
 import { objectivesCommand } from './objectives.js';
 import { artsCommand } from './arts.js';
 import { authChangeCommand } from './auth-change.js';
+import { epicsCommand } from './epics.js';
 
 /**
  * Register all CLI commands
@@ -32,19 +33,20 @@ export function registerAllCommands(program: Command): void {
   program.addCommand(whoamiCommand);
 
   // Resource command groups
-  program.addCommand(valueStreamsCommand);
-  program.addCommand(usersCommand);
-  program.addCommand(teamsCommand);
-  program.addCommand(strategicThemesCommand);
-  program.addCommand(solutionsCommand);
-  program.addCommand(portfoliosCommand);
-  program.addCommand(pisCommand);
-  program.addCommand(organizationsCommand);
-  program.addCommand(itemsCommand);
-  // program.addCommand(groupsCommand); // Skipped for now - complex polymorphic types
-  program.addCommand(kpisCommand);
-  program.addCommand(kanbansCommand);
-  program.addCommand(objectivesCommand);
-  program.addCommand(artsCommand);
-  program.addCommand(authChangeCommand);
+   program.addCommand(valueStreamsCommand);
+   program.addCommand(usersCommand);
+   program.addCommand(teamsCommand);
+   program.addCommand(strategicThemesCommand);
+   program.addCommand(solutionsCommand);
+   program.addCommand(portfoliosCommand);
+   program.addCommand(pisCommand);
+   program.addCommand(organizationsCommand);
+   program.addCommand(itemsCommand);
+   program.addCommand(epicsCommand);
+   // program.addCommand(groupsCommand); // Skipped for now - complex polymorphic types
+   program.addCommand(kpisCommand);
+   program.addCommand(kanbansCommand);
+   program.addCommand(objectivesCommand);
+   program.addCommand(artsCommand);
+   program.addCommand(authChangeCommand);
 }
