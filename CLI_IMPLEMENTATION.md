@@ -21,35 +21,6 @@ All core API endpoints have been implemented as CLI commands with the following 
 - `kvasar teammembers` - list, create
 - `kvasar auth-change` - password, name
 
-## Skipped Commands
-
-### Groups (`/api/v1/groups/`)
-
-**Reason:** The `/api/v1/groups/` endpoint uses polymorphic types. The API accepts and returns one of:
-- `Group`
-- `BusinessOwner`
-- `EpicOwners`
-- `ProductManagers`
-- `SolutionsGroup`
-
-This complexity makes it difficult to manage via CLI without requiring users to know exactly which type they're creating/updating. The POST endpoint expects a specific type but the API determines it from the payload.
-
-**Recommendation:** Implement separate commands for each group type:
-- `kvasar groups create` (base Group)
-- `kvasar business-owners` (BusinessOwner)
-- `kvasar epic-owners` (EpicOwners)
-- `kvasar product-managers` (ProductManagers)
-- `kvasar solutions-groups` (SolutionsGroup)
-
-### Stripe Endpoints
-
-All Stripe-related endpoints have been intentionally excluded:
-- `/stripe/webhook` (webhook handler, not a CLI command)
-- `/api/v1/stripe/create-customer`
-- `/api/v1/stripe/checkout-session`
-
-**Reason:** Stripe functionality is payment-related and not needed for the core agile management CLI.
-
 ## Usage
 
 All commands support these global options (inherited from `kvasar`):
