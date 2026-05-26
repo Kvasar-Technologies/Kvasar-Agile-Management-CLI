@@ -2,41 +2,38 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
 import { homedir } from 'os';
+import { createHash } from 'crypto';
 import { CONFIG } from './config.js';
 
 /**
  * Token storage abstraction using keytar (preferred) with encrypted file fallback
  */
 
-// Try to import keytar (may fail on unsupported platforms)
+// Lazy-load keytar only when explicitly requested to avoid issues on headless/serial terminals
 let keytar: any = null;
 let keytarAvailable = false;
-try {
-  keytar = require('keytar');
-  keytarAvailable = true;
-} catch (err) {
-  // keytar not available, will use file fallback
-}
 
 /**
  * Encrypt data for fallback file storage
  */
 async function encrypt(data: string, salt: string): Promise<string> {
+  // Derive a fixed 32-byte salt using SHA-256
+  const saltHash = createHash('sha256').update(salt, 'utf8').digest();
+
   const encoder = new TextEncoder();
   const keyMaterial = await crypto.subtle.importKey(
     'raw',
-    encoder.encode(salt),
+    saltHash,
     { name: 'PBKDF2' },
     false,
     ['deriveBits', 'deriveKey']
   );
 
-  const saltBytes = encoder.encode(salt);
   const iv = crypto.getRandomValues(new Uint8Array(12));
   const key = await crypto.subtle.deriveKey(
     {
       name: 'PBKDF2',
-      salt: saltBytes,
+      salt: saltHash,
       iterations: 100000,
       hash: 'SHA-256',
     },
@@ -52,11 +49,11 @@ async function encrypt(data: string, salt: string): Promise<string> {
     encoder.encode(data)
   );
 
-  // Combine salt + iv + encrypted data
-  const combined = new Uint8Array(saltBytes.length + iv.byteLength + encrypted.byteLength);
-  combined.set(saltBytes, 0);
-  combined.set(iv, saltBytes.length);
-  combined.set(new Uint8Array(encrypted), saltBytes.length + iv.byteLength);
+  // Store: saltHash (32) + iv + encrypted
+  const combined = new Uint8Array(saltHash.length + iv.byteLength + encrypted.byteLength);
+  combined.set(saltHash, 0);
+  combined.set(iv, saltHash.length);
+  combined.set(new Uint8Array(encrypted), saltHash.length + iv.byteLength);
 
   return Buffer.from(combined).toString('base64');
 }
@@ -64,7 +61,7 @@ async function encrypt(data: string, salt: string): Promise<string> {
 async function decrypt(encryptedBase64: string): Promise<string> {
   const combined = Uint8Array.from(Buffer.from(encryptedBase64, 'base64'));
 
-  // Extract salt (varies, we'll store first 32), iv (12), encrypted
+  // Salt hash is first 32 bytes, iv is next 12 bytes
   const salt = combined.slice(0, 32);
   const iv = combined.slice(32, 44);
   const encrypted = combined.slice(44);
@@ -124,7 +121,19 @@ export class TokenStore {
   private useKeytar: boolean;
 
   constructor() {
-    this.useKeytar = keytarAvailable;
+    // Use file fallback by default to avoid keytar issues on headless/serial terminals
+    // Set KVASAR_USE_KEYTAR=1 to force keytar if available
+    this.useKeytar = false;
+    if (process.env.KVASAR_USE_KEYTAR === '1') {
+      try {
+        keytar = require('keytar');
+        keytarAvailable = true;
+        this.useKeytar = true;
+      } catch (err) {
+        // keytar not available, will use file fallback
+        this.useKeytar = false;
+      }
+    }
   }
 
   async setAccessToken(token: string): Promise<void> {
@@ -211,26 +220,21 @@ export class TokenStore {
   // Fallback file storage methods
   private async setFallback(key: string, value: string): Promise<void> {
     const path = getStoragePath();
-    const data: Record<string, string> = {};
+    let data: Record<string, string> = {};
 
     if (fs.existsSync(path)) {
       try {
         const content = await decrypt(fs.readFileSync(path, 'utf-8'));
-        const [storedKey, storedValue] = content.split(':', 2);
-        if (storedKey && storedValue) {
-          data[storedKey] = storedValue;
-        }
+        data = JSON.parse(content);
       } catch {
         // Corrupted file, start fresh
       }
     }
 
     data[key] = value;
-    const entries = Object.entries(data);
-    if (entries.length === 0) return;
-
-    // Encrypt all entries as JSON
     const jsonStr = JSON.stringify(data);
+    if (!jsonStr) return;
+
     const encrypted = await encrypt(jsonStr, this.getUserSalt());
     fs.writeFileSync(path, encrypted, { mode: 0o600 });
   }

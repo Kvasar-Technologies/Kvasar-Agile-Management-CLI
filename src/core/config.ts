@@ -6,15 +6,15 @@
 export const CONFIG = {
   // Auth0 Configuration
   auth0: {
-    domain: process.env.AUTH0_DOMAIN || 'https://dev-lGi84A0ND2fWKw8h.us.auth0.com',
-    audience: process.env.AUTH0_AUDIENCE || 'https://api.kvasar.io',
-    clientId: process.env.AUTH0_CLIENT_ID || 'YOUR_CLIENT_ID',
+    domain: process.env.AUTH0_DOMAIN || 'https://kvasar-pro.eu.auth0.com',
+    audience: process.env.AUTH0_AUDIENCE || 'https://api.kvasar.tech/api/v1/',
+    clientId: process.env.AUTH0_CLIENT_ID || 'TJAjLrdPvFPDBqtSr15fvIer15Ocl9EI',
     // Native application - no client secret needed for device flow
   },
 
   // Kvasar API Configuration
   api: {
-    baseUrl: process.env.KVASAR_API_URL || 'https://api.kvasar.io',
+    baseUrl: process.env.KVASAR_API_URL || 'https://api.kvasar.tech',
     // Optional API versioning
     apiVersion: 'v1',
   },

@@ -34,9 +34,23 @@ program
 
 registerAllCommands(program);
 
-// Handle access token override
-program.parse();
-const opts = program.opts();
-if (opts.accessToken) {
-  authService.setOverrideToken(opts.accessToken);
+async function main() {
+  // Initialize auth: load tokens from storage before parsing
+  await authService.initialize();
+
+  // Set up access token override if provided via option
+  program.on('option:accessToken', (token: string) => {
+    authService.setOverrideToken(token);
+  });
+
+  try {
+    // Parse arguments and execute command
+    await program.parseAsync();
+    process.exit(0);
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : String(error));
+    process.exit(1);
+  }
 }
+
+main();

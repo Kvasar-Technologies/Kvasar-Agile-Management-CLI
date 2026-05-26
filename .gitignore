@@ -3,3 +3,6 @@ dist/
 *.tsbuildinfo
 .env
 .env.*
+
+BUILD_PROJECT.md
+NPM_PUBLISH.md

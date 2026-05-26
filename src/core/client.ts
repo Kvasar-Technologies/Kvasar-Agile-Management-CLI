@@ -85,18 +85,299 @@ export class KvasarClient {
     return this.request(endpoint, { ...options, method: 'DELETE' });
   }
 
-  // Higher-level API methods for common operations
-  async getCurrentUser(): Promise<any> {
-    return this.get('/api/v1/user/profile');
+  // ========== Value Streams ==========
+  async listValueStreams(): Promise<any> {
+    return this.get('/api/v1/vas/');
   }
 
-  async getOrganizations(): Promise<any> {
-    return this.get('/api/v1/organizations');
+  async getValueStream(id: string): Promise<any> {
+    return this.get(`/api/v1/vas/${id}`);
   }
 
-  async getProjects(orgId?: string): Promise<any> {
-    const query = orgId ? `?organization_id=${orgId}` : '';
-    return this.get(`/api/v1/projects${query}`);
+  async createValueStream(body: any): Promise<any> {
+    return this.post('/api/v1/vas/', body);
+  }
+
+  async updateValueStream(id: string, body: any): Promise<any> {
+    return this.put(`/api/v1/vas/${id}`, body);
+  }
+
+  async deleteValueStream(id: string): Promise<any> {
+    return this.delete(`/api/v1/vas/${id}`);
+  }
+
+  async patchValueStream(id: string, body: any): Promise<any> {
+    return this.patch(`/api/v1/vas/${id}`, body, {
+      headers: { 'Content-Type': 'application/json-patch+json' }
+    });
+  }
+
+  async updateStages(id: string, stages: any[]): Promise<any> {
+    return this.put(`/api/v1/vas/${id}/stages`, stages);
+  }
+
+  async addStage(id: string, stage: any): Promise<any> {
+    return this.post(`/api/v1/vas/${id}/stages`, stage);
+  }
+
+  async addSolutions(id: string, solutionIds: any[]): Promise<any> {
+    return this.post(`/api/v1/vas/${id}/solutions`, solutionIds);
+  }
+
+  async addArt(id: string, art: any): Promise<any> {
+    return this.post(`/api/v1/vas/${id}/arts`, art);
+  }
+
+  async copyValueStream(id: string, body: any): Promise<any> {
+    return this.post(`/api/v1/vas/${id}/copy`, body);
+  }
+
+  // ========== Users ==========
+  async listUsers(): Promise<any> {
+    return this.get('/api/v1/users/');
+  }
+
+  async createUser(body: any): Promise<any> {
+    return this.post('/api/v1/users/', body);
+  }
+
+  async updateUser(body: any): Promise<any> {
+    return this.put('/api/v1/users/', body);
+  }
+
+  // ========== Teams ==========
+  async listTeams(): Promise<any> {
+    return this.get('/api/v1/teams/');
+  }
+
+  async createTeam(body: any): Promise<any> {
+    return this.post('/api/v1/teams/', body);
+  }
+
+  async updateTeam(body: any): Promise<any> {
+    return this.put('/api/v1/teams/', body);
+  }
+
+  // ========== Strategic Themes ==========
+  async listStrategicThemes(): Promise<any> {
+    return this.get('/api/v1/strategicthemes/');
+  }
+
+  async getStrategicTheme(id: string): Promise<any> {
+    return this.get(`/api/v1/strategicthemes/${id}`);
+  }
+
+  async createStrategicTheme(body: any): Promise<any> {
+    return this.post('/api/v1/strategicthemes/', body);
+  }
+
+  async updateStrategicTheme(id: string, body: any): Promise<any> {
+    return this.put(`/api/v1/strategicthemes/${id}`, body);
+  }
+
+  async deleteStrategicTheme(id: string): Promise<any> {
+    return this.delete(`/api/v1/strategicthemes/${id}`);
+  }
+
+  async patchStrategicTheme(id: string, body: any): Promise<any> {
+    return this.patch(`/api/v1/strategicthemes/${id}`, body);
+  }
+
+  async addKeyResult(strategicThemeId: string, keyResult: any): Promise<any> {
+    return this.put(`/api/v1/strategicthemes/${strategicThemeId}/keyresults`, keyResult);
+  }
+
+  async addBudgetDistribution(strategicThemeId: string, budget: any): Promise<any> {
+    return this.put(`/api/v1/strategicthemes/${strategicThemeId}/budgetdistribution`, budget);
+  }
+
+  // ========== Solutions ==========
+  async listSolutions(): Promise<any> {
+    return this.get('/api/v1/solutions/');
+  }
+
+  async getSolution(id: string): Promise<any> {
+    return this.get(`/api/v1/solutions/${id}`);
+  }
+
+  async createSolution(body: any): Promise<any> {
+    return this.post('/api/v1/solutions/', body);
+  }
+
+  async updateSolution(id: string, body: any): Promise<any> {
+    return this.put(`/api/v1/solutions/${id}`, body);
+  }
+
+  async deleteSolution(id: string): Promise<any> {
+    return this.delete(`/api/v1/solutions/${id}`);
+  }
+
+  async patchSolution(id: string, body: any): Promise<any> {
+    return this.patch(`/api/v1/solutions/${id}`, body);
+  }
+
+  async addRelation(solutionId: string, relation: any): Promise<any> {
+    return this.put(`/api/v1/solutions/${solutionId}/relations`, relation);
+  }
+
+  // ========== Roadmaps ==========
+  async listRoadmaps(): Promise<any> {
+    return this.get('/api/v1/roadmaps/');
+  }
+
+  async createRoadMap(body: any): Promise<any> {
+    return this.post('/api/v1/roadmaps/', body);
+  }
+
+  async updateRoadMap(body: any): Promise<any> {
+    return this.put('/api/v1/roadmaps/', body);
+  }
+
+  // ========== Portfolios ==========
+  async listPortfolios(): Promise<any> {
+    return this.get('/api/v1/portfolios/');
+  }
+
+  async createPortfolio(body: any): Promise<any> {
+    return this.post('/api/v1/portfolios/', body);
+  }
+
+  async updatePortfolio(body: any): Promise<any> {
+    return this.put('/api/v1/portfolios/', body);
+  }
+
+  // ========== Program Increments ==========
+  async getProgramIncrement(id: string): Promise<any> {
+    return this.get(`/api/v1/pis/${id}`);
+  }
+
+  async updateProgramIncrement(id: string, body: any): Promise<any> {
+    return this.put(`/api/v1/pis/${id}`, body);
+  }
+
+  async deleteProgramIncrement(id: string): Promise<any> {
+    return this.delete(`/api/v1/pis/${id}`);
+  }
+
+  async addSprint(piId: string, sprint: any): Promise<any> {
+    return this.put(`/api/v1/pis/${piId}/sprints`, sprint);
+  }
+
+  // ========== Organizations ==========
+  async getOrganization(id: string): Promise<any> {
+    return this.get(`/api/v1/organizations/${id}`);
+  }
+
+  async updateOrganization(id: string, body: any): Promise<any> {
+    return this.put(`/api/v1/organizations/${id}`, body);
+  }
+
+  async deleteOrganization(id: string): Promise<any> {
+    return this.delete(`/api/v1/organizations/${id}`);
+  }
+
+  async patchOrganization(id: string, body: any): Promise<any> {
+    return this.patch(`/api/v1/organizations/${id}`, body);
+  }
+
+  // ========== Items ==========
+  async getItem(id: string): Promise<any> {
+    return this.get(`/api/v1/items/${id}`);
+  }
+
+  async updateItem(id: string, body: any): Promise<any> {
+    return this.put(`/api/v1/items/${id}`, body);
+  }
+
+  async deleteItem(id: string): Promise<any> {
+    return this.delete(`/api/v1/items/${id}`);
+  }
+
+  async patchItem(id: string, body: any): Promise<any> {
+    return this.patch(`/api/v1/items/${id}`, body);
+  }
+
+  async addItemRelation(featureId: string, relation: any): Promise<any> {
+    return this.put(`/api/v1/items/${featureId}/relations`, relation);
+  }
+
+  // ========== Groups ==========
+  async listGroups(): Promise<any> {
+    return this.get('/api/v1/groups/');
+  }
+
+  async createGroup(body: any): Promise<any> {
+    return this.post('/api/v1/groups/', body);
+  }
+
+  async updateGroup(body: any): Promise<any> {
+    return this.put('/api/v1/groups/', body);
+  }
+
+  // ========== Team Members ==========
+  async listTeamMembers(): Promise<any> {
+    return this.get('/api/v1/teammembers/');
+  }
+
+  async createTeamMember(body: any): Promise<any> {
+    return this.post('/api/v1/teammembers/', body);
+  }
+
+  // ========== KPIs ==========
+  async listKPIs(): Promise<any> {
+    return this.get('/api/v1/kpis/');
+  }
+
+  async createKPI(body: any): Promise<any> {
+    return this.post('/api/v1/kpis/', body);
+  }
+
+  async updateKPI(body: any): Promise<any> {
+    return this.put('/api/v1/kpis/', body);
+  }
+
+  // ========== Kanbans ==========
+  async listKanbans(): Promise<any> {
+    return this.get('/api/v1/kanbans/');
+  }
+
+  async createKanban(body: any): Promise<any> {
+    return this.post('/api/v1/kanbans/', body);
+  }
+
+  async updateKanban(body: any): Promise<any> {
+    return this.put('/api/v1/kanbans/', body);
+  }
+
+  // ========== Objectives ==========
+  async listObjectives(): Promise<any> {
+    return this.get('/api/v1/objectives/');
+  }
+
+  async updateObjective(body: any): Promise<any> {
+    return this.put('/api/v1/objectives/', body);
+  }
+
+  // ========== ARTs ==========
+  async listARTs(): Promise<any> {
+    return this.get('/api/v1/arts/');
+  }
+
+  async createART(body: any): Promise<any> {
+    return this.post('/api/v1/arts/', body);
+  }
+
+  async updateART(body: any): Promise<any> {
+    return this.put('/api/v1/arts/', body);
+  }
+
+  // ========== User Settings ==========
+  async changePassword(body: any): Promise<any> {
+    return this.put('/api/v1/change_password', body);
+  }
+
+  async changeName(body: any): Promise<any> {
+    return this.put('/api/v1/change_name', body);
   }
 
   // Add more specific methods as needed for agile management features
