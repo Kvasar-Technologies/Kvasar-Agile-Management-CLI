@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import { formatOutput } from '../utils/output.js';
 import { getClient } from '../utils/client.js';
+import * as fs from 'fs';
 
 // Execute functions
 export async function executeUsersList(args: { output?: string; fields?: string; quiet?: boolean }): Promise<any> {
@@ -11,14 +12,14 @@ export async function executeUsersList(args: { output?: string; fields?: string;
 
 export async function executeUsersCreate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.createUser(body);
   return { data };
 }
 
 export async function executeUsersUpdate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.updateUser(body);
   return { data };
 }

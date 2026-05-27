@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import { formatOutput } from '../utils/output.js';
 import { getClient } from '../utils/client.js';
+import * as fs from 'fs';
 
 /**
  * Execute list value streams
@@ -25,7 +26,7 @@ export async function executeValueStreamsGet(args: { id: string; output?: string
  */
 export async function executeValueStreamsCreate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.createValueStream(body);
   return { data };
 }
@@ -35,7 +36,7 @@ export async function executeValueStreamsCreate(args: { file?: string; output?: 
  */
 export async function executeValueStreamsUpdate(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.updateValueStream(args.id, body);
   return { data };
 }
@@ -54,7 +55,7 @@ export async function executeValueStreamsDelete(args: { id: string; output?: str
  */
 export async function executeValueStreamsPatch(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : [];
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : [];
   const data = await client.patchValueStream(args.id, body);
   return { data };
 }
@@ -64,7 +65,7 @@ export async function executeValueStreamsPatch(args: { id: string; file?: string
  */
 export async function executeValueStreamsStages(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : [];
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : [];
   const data = await client.updateStages(args.id, body);
   return { data };
 }
@@ -74,7 +75,7 @@ export async function executeValueStreamsStages(args: { id: string; file?: strin
  */
 export async function executeValueStreamsAddStage(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.addStage(args.id, body);
   return { data };
 }
@@ -84,7 +85,7 @@ export async function executeValueStreamsAddStage(args: { id: string; file?: str
  */
 export async function executeValueStreamsAddSolutions(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : [];
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : [];
   const data = await client.addSolutions(args.id, body);
   return { data };
 }
@@ -94,7 +95,7 @@ export async function executeValueStreamsAddSolutions(args: { id: string; file?:
  */
 export async function executeValueStreamsAddArt(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.addArt(args.id, body);
   return { data };
 }
@@ -104,7 +105,7 @@ export async function executeValueStreamsAddArt(args: { id: string; file?: strin
  */
 export async function executeValueStreamsCopy(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.copyValueStream(args.id, body);
   return { data };
 }

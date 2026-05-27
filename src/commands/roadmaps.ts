@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import { formatOutput } from '../utils/output.js';
 import { getClient } from '../utils/client.js';
+import * as fs from 'fs';
 
 export async function executeRoadmapsList(args: { output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
@@ -10,14 +11,14 @@ export async function executeRoadmapsList(args: { output?: string; quiet?: boole
 
 export async function executeRoadmapsCreate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.createRoadMap(body);
   return { data };
 }
 
 export async function executeRoadmapsUpdate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.updateRoadMap(body);
   return { data };
 }
