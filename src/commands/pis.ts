@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import { formatOutput } from '../utils/output.js';
 import { getClient } from '../utils/client.js';
+import * as fs from 'fs';
 
 export async function executePIsGet(args: { id: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
@@ -10,7 +11,7 @@ export async function executePIsGet(args: { id: string; output?: string; quiet?:
 
 export async function executePIsUpdate(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.updateProgramIncrement(args.id, body);
   return { data };
 }
@@ -23,7 +24,7 @@ export async function executePIsDelete(args: { id: string; output?: string; quie
 
 export async function executePIsAddSprint(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.addSprint(args.id, body);
   return { data };
 }
