@@ -21,7 +21,10 @@ import { kanbansCommand } from './kanbans.js';
 import { objectivesCommand } from './objectives.js';
 import { artsCommand } from './arts.js';
 import { authChangeCommand } from './auth-change.js';
-import { epicsCommand } from './epics.js';
+ import { epicsCommand } from './epics.js';
+ import { productsCommand } from './products.js';
+ import { servicesCommand } from './services.js';
+ import { systemsCommand } from './systems.js';
 
 /**
  * Register all CLI commands
@@ -47,6 +50,9 @@ export function registerAllCommands(program: Command): void {
    program.addCommand(kpisCommand);
    program.addCommand(kanbansCommand);
    program.addCommand(objectivesCommand);
-   program.addCommand(artsCommand);
-   program.addCommand(authChangeCommand);
-}
+     program.addCommand(artsCommand);
+     program.addCommand(authChangeCommand);
+     program.addCommand(productsCommand);
+     program.addCommand(servicesCommand);
+     program.addCommand(systemsCommand);
+ }
