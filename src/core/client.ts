@@ -216,11 +216,15 @@ export class KvasarClient {
     return this.patch(`/api/v1/solutions/${id}`, body);
   }
 
-  async addRelation(solutionId: string, relation: any): Promise<any> {
-    return this.put(`/api/v1/solutions/${solutionId}/relations`, relation);
-  }
+    async addRelation(solutionId: string, relation: any): Promise<any> {
+      return this.put(`/api/v1/solutions/${solutionId}/relations`, relation);
+    }
 
-  // ========== Roadmaps ==========
+    async listSolutionsByType(type: string): Promise<any> {
+      return this.get(`/api/v1/solutions/?type=${encodeURIComponent(type)}`);
+    }
+
+    // ========== Roadmaps ==========
   async listRoadmaps(): Promise<any> {
     return this.get('/api/v1/roadmaps/');
   }
