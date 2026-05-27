@@ -1,4 +1,5 @@
 import { Command } from 'commander';
+import fs from 'fs';
 import { formatOutput } from '../utils/output.js';
 import { getClient } from '../utils/client.js';
 
@@ -16,14 +17,14 @@ export async function executeSolutionsGet(args: { id: string; output?: string; q
 
 export async function executeSolutionsCreate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.createSolution(body);
   return { data };
 }
 
 export async function executeSolutionsUpdate(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.updateSolution(args.id, body);
   return { data };
 }
@@ -36,14 +37,14 @@ export async function executeSolutionsDelete(args: { id: string; output?: string
 
 export async function executeSolutionsPatch(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : [];
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : [];
   const data = await client.patchSolution(args.id, body);
   return { data };
 }
 
 export async function executeSolutionsAddRelation(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.addRelation(args.id, body);
   return { data };
 }

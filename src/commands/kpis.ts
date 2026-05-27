@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { Command } from 'commander';
 import { formatOutput } from '../utils/output.js';
 import { getClient } from '../utils/client.js';
@@ -10,14 +11,14 @@ export async function executeKPIsList(args: { output?: string; quiet?: boolean }
 
 export async function executeKPIsCreate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.createKPI(body);
   return { data };
 }
 
 export async function executeKPIsUpdate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.updateKPI(body);
   return { data };
 }

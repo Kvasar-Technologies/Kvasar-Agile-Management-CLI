@@ -1,4 +1,5 @@
 import { Command } from 'commander';
+import fs from 'fs';
 import { formatOutput } from '../utils/output.js';
 import { getClient } from '../utils/client.js';
 
@@ -16,7 +17,7 @@ export async function executeServicesGet(args: { id: string; output?: string; qu
 
 export async function executeServicesCreate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.createSolution({ ...body, type: 'service' });
   return { data };
 }

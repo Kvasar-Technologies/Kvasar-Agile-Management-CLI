@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { Command } from 'commander';
 import { formatOutput } from '../utils/output.js';
 import { getClient } from '../utils/client.js';
@@ -10,7 +11,7 @@ export async function executeItemsGet(args: { id: string; output?: string; quiet
 
 export async function executeItemsUpdate(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.updateItem(args.id, body);
   return { data };
 }
@@ -23,14 +24,14 @@ export async function executeItemsDelete(args: { id: string; output?: string; qu
 
 export async function executeItemsPatch(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : [];
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : [];
   const data = await client.patchItem(args.id, body);
   return { data };
 }
 
 export async function executeItemsAddRelation(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.addItemRelation(args.id, body);
   return { data };
 }

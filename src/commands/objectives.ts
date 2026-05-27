@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { Command } from 'commander';
 import { formatOutput } from '../utils/output.js';
 import { getClient } from '../utils/client.js';
@@ -10,7 +11,7 @@ export async function executeObjectivesList(args: { output?: string; quiet?: boo
 
 export async function executeObjectivesUpdate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.updateObjective(body);
   return { data };
 }

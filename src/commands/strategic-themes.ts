@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { Command } from 'commander';
 import { formatOutput } from '../utils/output.js';
 import { getClient } from '../utils/client.js';
@@ -16,14 +17,14 @@ export async function executeStrategicThemesGet(args: { id: string; output?: str
 
 export async function executeStrategicThemesCreate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.createStrategicTheme(body);
   return { data };
 }
 
 export async function executeStrategicThemesUpdate(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.updateStrategicTheme(args.id, body);
   return { data };
 }
@@ -36,21 +37,21 @@ export async function executeStrategicThemesDelete(args: { id: string; output?: 
 
 export async function executeStrategicThemesPatch(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : [];
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : [];
   const data = await client.patchStrategicTheme(args.id, body);
   return { data };
 }
 
 export async function executeStrategicThemesAddKeyResult(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.addKeyResult(args.id, body);
   return { data };
 }
 
 export async function executeStrategicThemesAddBudgetDistribution(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(require('fs').readFileSync(args.file, 'utf-8')) : {};
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
   const data = await client.addBudgetDistribution(args.id, body);
   return { data };
 }
