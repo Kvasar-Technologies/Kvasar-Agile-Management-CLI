@@ -19,13 +19,13 @@ export async function executeFeatureCreate(args: { file?: string; output?: strin
 export const featureCommand = new Command('feature')
   .description('Create and manage features in Kvasar')
   .addCommand(new Command('create')
-     .description('Create a new feature\n\nRequires a JSON file with feature data. The feature must include all required fields:\n- name (must be "feature")\n- description\n- kanbanId\n- columnId\n- ownerId\n- portfolioId\n- parentId\n\nOptional fields: acceptanceCriteria, benefitHypothesis, dor, featureOwnerId, normalizedStoryPoints, priorizationId, isMvp, teams, programIncrementId, solutionId, artId.\n\nSee the Kvasar API documentation for full schema and examples.')
-    .option('--file <path>', 'Path to JSON file containing feature data')
-    .option('--output <format>', 'Output format: json or pretty', 'json')
-    .option('--quiet', 'Suppress output')
-    .action(async (options) => {
-      const result = await executeFeatureCreate(options);
-      if (!options.quiet) {
-        console.log(formatOutput(result.data, options));
-      }
-    }));
+      .description('Create a new feature\n\nIMPORTANT: The JSON must use "name": "feature" as the type discriminator. Your feature\'s actual title goes in the "description" field.\n\nRequired fields:\n- name: "feature" (literal string, not your title)\n- description: your feature\'s title and details\n- kanbanId: kanban board ID\n- columnId: kanban column ID\n- ownerId: user ID\n- portfolioId: portfolio ID\n- parentId: parent epic ID\n\nOptional fields: acceptanceCriteria, benefitHypothesis, dor, featureOwnerId, normalizedStoryPoints, priorizationId, isMvp, teams, programIncrementId, solutionId, artId.\n\nExample:\n{\n  "name": "feature",\n  "description": "Data Anonymization Service",\n  "portfolioId": "6406330ba1c8c35d1c5edb66",\n  "kanbanId": "6406330ba1c8c35d1c5edb65",\n  "columnId": "477cefb0-00c2-48f8-b653-05942a0335c3",\n  "ownerId": "63f66a33e3a92300120c5ee4",\n  "parentId": "671be3e0b81e400ea0ebc39c"\n}')
+     .option('--file <path>', 'Path to JSON file containing feature data')
+     .option('--output <format>', 'Output format: json or pretty', 'json')
+     .option('--quiet', 'Suppress output')
+     .action(async (options) => {
+       const result = await executeFeatureCreate(options);
+       if (!options.quiet) {
+         console.log(formatOutput(result.data, options));
+       }
+     }));
