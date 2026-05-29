@@ -29,8 +29,22 @@ export async function executeOrganizationsPatch(args: { id: string; file?: strin
   return { data };
 }
 
+export async function executeOrganizationsList(args: { output?: string; quiet?: boolean }): Promise<any> {
+  const client = await getClient();
+  const data = await client.listOrganizations();
+  return { data };
+}
+
 export const organizationsCommand = new Command('organizations')
   .description('Manage organizations')
+  .addCommand(new Command('list')
+    .description('List all organizations')
+    .option('--output <format>', 'Output format: json or pretty', 'json')
+    .option('--quiet', 'Suppress output')
+    .action(async (options) => {
+      const result = await executeOrganizationsList(options);
+      console.log(formatOutput(result.data, options));
+    }))
   .addCommand(new Command('get <id>')
     .description('Get an organization by ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
