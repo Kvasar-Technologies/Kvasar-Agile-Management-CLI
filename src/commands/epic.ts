@@ -19,7 +19,7 @@ export async function executeEpicCreate(args: { file?: string; output?: string; 
 export const epicCommand = new Command('epic')
   .description('Create and manage epics in Kvasar')
   .addCommand(new Command('create')
-    .description('Create a new epic\n\nRequires a JSON file with epic data. The epic must include all required fields:\n- code\n- columnId\n- description\n- epicOwnerId\n- epicType (solutionEpic, portfolioEpic, or programEpic)\n- kanbanId\n- ownerId\n- parentId\n- portfolioId\n- toKanban (boolean)\n\nSee the Kvasar API documentation for full schema and examples.')
+    .description('Create a new epic\n\nRequires a JSON file with epic data. The epic must include all required fields:\n- code\n- columnId\n- description\n- epicOwnerId\n- epicType (solutionEpic, portfolioEpic, or programEpic)\n- kanbanId\n- ownerId\n- parentId\n- portfolioId\n\nSee the Kvasar API documentation for full schema and examples.')
     .option('--file <path>', 'Path to JSON file containing epic data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
