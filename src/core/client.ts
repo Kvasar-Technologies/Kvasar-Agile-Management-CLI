@@ -220,8 +220,20 @@ export class KvasarClient {
       return this.put(`/api/v1/solutions/${solutionId}/relations`, relation);
     }
 
-    async listSolutionsByType(type: string): Promise<any> {
-      return this.get(`/api/v1/solutions/?type=${encodeURIComponent(type)}`);
+    async listSolutionsByType(type: string, filters?: {
+      organizationId?: string;
+      customerType?: string;
+      contextType?: string;
+      solutionManagerId?: string;
+    }): Promise<any> {
+      const params = new URLSearchParams({ type });
+      if (filters) {
+        if (filters.organizationId) params.append('organizationId', filters.organizationId);
+        if (filters.customerType) params.append('customerType', filters.customerType);
+        if (filters.contextType) params.append('contextType', filters.contextType);
+        if (filters.solutionManagerId) params.append('solutionManagerId', filters.solutionManagerId);
+      }
+      return this.get(`/api/v1/solutions/?${params.toString()}`);
     }
 
     // ========== Roadmaps ==========
