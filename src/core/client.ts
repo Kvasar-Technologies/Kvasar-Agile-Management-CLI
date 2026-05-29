@@ -338,6 +338,10 @@ export class KvasarClient {
       return this.post('/api/v1/items/', body);
     }
 
+    async createIssue(body: any): Promise<any> {
+      return this.post('/api/v1/items/', body);
+    }
+
    // ========== Groups ==========
   async listGroups(): Promise<any> {
     return this.get('/api/v1/groups/');

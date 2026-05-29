@@ -22,11 +22,12 @@ import { objectivesCommand } from './objectives.js';
 import { artsCommand } from './arts.js';
 import { authChangeCommand } from './auth-change.js';
  import { epicsCommand } from './epics.js';
- import { epicCommand } from './epic.js';
-  import { featureCommand } from './feature.js';
-  import { userstoryCommand } from './userstory.js';
-  import { enablerstoryCommand } from './enablerstory.js';
-  import { productsCommand } from './products.js';
+  import { epicCommand } from './epic.js';
+   import { featureCommand } from './feature.js';
+   import { userstoryCommand } from './userstory.js';
+   import { enablerstoryCommand } from './enablerstory.js';
+   import { issueCommand } from './issue.js';
+   import { productsCommand } from './products.js';
   import { servicesCommand } from './services.js';
   import { systemsCommand } from './systems.js';
 
@@ -48,13 +49,14 @@ export function registerAllCommands(program: Command): void {
    program.addCommand(portfoliosCommand);
    program.addCommand(pisCommand);
    program.addCommand(organizationsCommand);
-    program.addCommand(itemsCommand);
-    program.addCommand(epicsCommand);
-    program.addCommand(epicCommand);
-    program.addCommand(featureCommand);
-    program.addCommand(userstoryCommand);
-    program.addCommand(enablerstoryCommand);
-   // program.addCommand(groupsCommand); // Skipped for now - complex polymorphic types
+     program.addCommand(itemsCommand);
+     program.addCommand(epicsCommand);
+     program.addCommand(epicCommand);
+     program.addCommand(featureCommand);
+     program.addCommand(userstoryCommand);
+     program.addCommand(enablerstoryCommand);
+     program.addCommand(issueCommand);
+    // program.addCommand(groupsCommand); // Skipped for now - complex polymorphic types
    program.addCommand(kpisCommand);
    program.addCommand(kanbansCommand);
    program.addCommand(objectivesCommand);

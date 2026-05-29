@@ -21,6 +21,7 @@ All core API endpoints have been implemented as CLI commands with the following 
 - `kvasar feature` - create (POST /api/v1/items/ with Feature schema)
 - `kvasar userstory` - create (POST /api/v1/items/ with UserStory schema)
 - `kvasar enablerstory` - create (POST /api/v1/items/ with EnablerStory schema)
+- `kvasar issue` - create (POST /api/v1/items/ with Issue schema)
 - `kvasar kpis` - list, create, update
 - `kvasar kanbans` - list, create, update
 - `kvasar objectives` - list, update

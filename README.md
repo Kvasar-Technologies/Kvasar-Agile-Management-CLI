@@ -102,6 +102,7 @@ All commands support:
 - `kvasar feature` - Create feature
 - `kvasar userstory` - Create user story
 - `kvasar enablerstory` - Create enabler story
+- `kvasar issue` - Create issue
 - `kvasar teams` - List, create, update
 - `kvasar users` - List, create, update
 - `kvasar arts` - List, create, update (Agile Release Trains)

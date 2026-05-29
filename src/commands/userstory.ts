@@ -19,7 +19,7 @@ export async function executeUserStoryCreate(args: { file?: string; output?: str
 export const userstoryCommand = new Command('userstory')
   .description('Create and manage user stories in Kvasar')
   .addCommand(new Command('create')
-    .description('Create a new user story\n\nRequires a JSON file with user story data. The user story must include all required fields:\n- description\n- kanbanId\n- columnId\n- ownerId\n- portfolioId\n- parentId\n\nOptional fields: acceptanceCriteria, storyPoints, priorityId, task list, activity, businessValue, notes, teamId.\n\nSee the Kvasar API documentation for full schema and examples.')
+     .description('Create a new user story\n\nRequires a JSON file with user story data. The user story must include all required fields:\n- name (set to "userstory")\n- description\n- kanbanId\n- columnId\n- ownerId\n- portfolioId\n- parentId\n\nOptional fields: acceptanceCriteria, storyPoints, priorityId, task list, activity, businessValue, notes, teamId.\n\nSee the Kvasar API documentation for full schema and examples.')
     .option('--file <path>', 'Path to JSON file containing user story data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
