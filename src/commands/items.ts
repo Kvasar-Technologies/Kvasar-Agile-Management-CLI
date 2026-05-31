@@ -3,6 +3,12 @@ import { formatOutput } from '../utils/output.js';
 import { getClient } from '../utils/client.js';
 import * as fs from 'fs';
 
+export async function executeItemsList(args: { numeration?: string; parentId?: string; output?: string; quiet?: boolean }): Promise<any> {
+  const client = await getClient();
+  const data = await client.listItems({ numeration: args.numeration, parentId: args.parentId });
+  return { data };
+}
+
 export async function executeItemsGet(args: { id: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
   const data = await client.getItem(args.id);
@@ -38,6 +44,16 @@ export async function executeItemsAddRelation(args: { id: string; file?: string;
 
 export const itemsCommand = new Command('items')
   .description('Manage items (capabilities, defects, epics, features, stories, etc.)')
+  .addCommand(new Command('list')
+    .description('List items')
+    .option('--numeration <numeration>', 'Filter by numeration')
+    .option('--parentId <parentId>', 'Filter by parent ID')
+    .option('--output <format>', 'Output format: json or pretty', 'json')
+    .option('--quiet', 'Suppress output')
+    .action(async (options) => {
+      const result = await executeItemsList(options);
+      console.log(formatOutput(result.data, options));
+    }))
   .addCommand(new Command('get <id>')
     .description('Get an item by ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
