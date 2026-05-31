@@ -122,8 +122,9 @@ export const valueStreamsCommand = new Command('value-streams')
       const result = await executeValueStreamsList(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('get <id>')
+  .addCommand(new Command('get')
     .description('Get a value stream by ID')
+    .argument('<id>', 'Value stream ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--fields <fields>', 'Comma-separated fields to include')
     .option('--quiet', 'Suppress output')
@@ -140,8 +141,9 @@ export const valueStreamsCommand = new Command('value-streams')
       const result = await executeValueStreamsCreate(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('update <id>')
+  .addCommand(new Command('update')
     .description('Update a value stream (PUT)')
+    .argument('<id>', 'Value stream ID')
     .option('--file <path>', 'JSON file with updated data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -149,8 +151,9 @@ export const valueStreamsCommand = new Command('value-streams')
       const result = await executeValueStreamsUpdate({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('delete <id>')
+  .addCommand(new Command('delete')
     .description('Delete a value stream')
+    .argument('<id>', 'Value stream ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
@@ -159,8 +162,9 @@ export const valueStreamsCommand = new Command('value-streams')
         console.log(formatOutput(result, options));
       }
     }))
-  .addCommand(new Command('patch <id>')
+  .addCommand(new Command('patch')
     .description('Patch a value stream (JSON Patch)')
+    .argument('<id>', 'Value stream ID')
     .option('--file <path>', 'JSON Patch file')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -168,8 +172,9 @@ export const valueStreamsCommand = new Command('value-streams')
       const result = await executeValueStreamsPatch({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('stages <id>')
+  .addCommand(new Command('stages')
     .description('Update all stages of a value stream')
+    .argument('<id>', 'Value stream ID')
     .option('--file <path>', 'JSON file with stages array')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -177,8 +182,9 @@ export const valueStreamsCommand = new Command('value-streams')
       const result = await executeValueStreamsStages({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('add-stage <id>')
+  .addCommand(new Command('add-stage')
     .description('Add a stage to a value stream')
+    .argument('<id>', 'Value stream ID')
     .option('--file <path>', 'JSON file with stage data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -186,8 +192,9 @@ export const valueStreamsCommand = new Command('value-streams')
       const result = await executeValueStreamsAddStage({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('add-solutions <id>')
+  .addCommand(new Command('add-solutions')
     .description('Add solutions to a value stream')
+    .argument('<id>', 'Value stream ID')
     .option('--file <path>', 'JSON file with solution IDs array')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -195,8 +202,9 @@ export const valueStreamsCommand = new Command('value-streams')
       const result = await executeValueStreamsAddSolutions({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('add-art <id>')
+  .addCommand(new Command('add-art')
     .description('Add an ART to a value stream')
+    .argument('<id>', 'Value stream ID')
     .option('--file <path>', 'JSON file with ART data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -204,8 +212,9 @@ export const valueStreamsCommand = new Command('value-streams')
       const result = await executeValueStreamsAddArt({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('copy <id>')
+  .addCommand(new Command('copy')
     .description('Copy a value stream')
+    .argument('<id>', 'Value stream ID')
     .option('--file <path>', 'JSON file with copy configuration')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')

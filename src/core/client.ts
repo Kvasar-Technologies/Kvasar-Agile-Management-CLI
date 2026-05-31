@@ -301,9 +301,13 @@ export class KvasarClient {
   }
 
   // ========== Items ==========
-  async getItem(id: string): Promise<any> {
-    return this.get(`/api/v1/items/${id}`);
-  }
+   async getItem(id: string): Promise<any> {
+     return this.get(`/api/v1/items/${id}`);
+   }
+
+   async getItemByKey(key: string): Promise<any> {
+     return this.get(`/api/v1/items/key/${key}`);
+   }
 
   async updateItem(id: string, body: any): Promise<any> {
     return this.put(`/api/v1/items/${id}`, body);

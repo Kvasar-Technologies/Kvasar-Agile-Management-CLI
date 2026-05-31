@@ -66,8 +66,9 @@ export const strategicThemesCommand = new Command('strategic-themes')
       const result = await executeStrategicThemesList(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('get <id>')
+  .addCommand(new Command('get')
     .description('Get a strategic theme by ID')
+    .argument('<id>', 'Strategic theme ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
@@ -83,8 +84,9 @@ export const strategicThemesCommand = new Command('strategic-themes')
       const result = await executeStrategicThemesCreate(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('update <id>')
+  .addCommand(new Command('update')
     .description('Update a strategic theme (PUT)')
+    .argument('<id>', 'Strategic theme ID')
     .option('--file <path>', 'JSON file with updated data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -92,8 +94,9 @@ export const strategicThemesCommand = new Command('strategic-themes')
       const result = await executeStrategicThemesUpdate({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('delete <id>')
+  .addCommand(new Command('delete')
     .description('Delete a strategic theme')
+    .argument('<id>', 'Strategic theme ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
@@ -102,8 +105,9 @@ export const strategicThemesCommand = new Command('strategic-themes')
         console.log(formatOutput(result, options));
       }
     }))
-  .addCommand(new Command('patch <id>')
+  .addCommand(new Command('patch')
     .description('Patch a strategic theme (JSON Patch)')
+    .argument('<id>', 'Strategic theme ID')
     .option('--file <path>', 'JSON Patch file')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -111,8 +115,9 @@ export const strategicThemesCommand = new Command('strategic-themes')
       const result = await executeStrategicThemesPatch({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('add-keyresult <id>')
+  .addCommand(new Command('add-keyresult')
     .description('Add a key result to a strategic theme')
+    .argument('<id>', 'Strategic theme ID')
     .option('--file <path>', 'JSON file with key result data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -120,8 +125,9 @@ export const strategicThemesCommand = new Command('strategic-themes')
       const result = await executeStrategicThemesAddKeyResult({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('add-budget <id>')
+  .addCommand(new Command('add-budget')
     .description('Add budget distribution to a strategic theme')
+    .argument('<id>', 'Strategic theme ID')
     .option('--file <path>', 'JSON file with budget data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
