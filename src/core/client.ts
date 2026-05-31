@@ -301,11 +301,26 @@ export class KvasarClient {
   }
 
   // ========== Items ==========
-   async getItem(id: string): Promise<any> {
-     return this.get(`/api/v1/items/${id}`);
-   }
+  async listItems(filters: { numeration?: string; parentId?: string } = {}): Promise<any> {
+    const query = new URLSearchParams();
 
-   async getItemByKey(key: string): Promise<any> {
+    if (filters.numeration) {
+      query.set('numeration', filters.numeration);
+    }
+
+    if (filters.parentId) {
+      query.set('parentId', filters.parentId);
+    }
+
+    const queryString = query.toString();
+    return this.get(`/api/v1/items/${queryString ? `?${queryString}` : ''}`);
+  }
+
+  async getItem(id: string): Promise<any> {
+    return this.get(`/api/v1/items/${id}`);
+  }
+  
+  async getItemByKey(key: string): Promise<any> {
      return this.get(`/api/v1/items/key/${key}`);
    }
 
