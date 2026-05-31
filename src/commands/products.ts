@@ -48,8 +48,9 @@ export const productsCommand = new Command('products')
       const result = await executeProductsList(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('get <id>')
+  .addCommand(new Command('get')
     .description('Get a product by ID')
+    .argument('<id>', 'Product ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {

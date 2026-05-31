@@ -59,8 +59,9 @@ export const solutionsCommand = new Command('solutions')
       const result = await executeSolutionsList(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('get <id>')
+  .addCommand(new Command('get')
     .description('Get a solution by ID')
+    .argument('<id>', 'Solution ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
@@ -76,8 +77,9 @@ export const solutionsCommand = new Command('solutions')
       const result = await executeSolutionsCreate(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('update <id>')
+  .addCommand(new Command('update')
     .description('Update a solution (PUT)')
+    .argument('<id>', 'Solution ID')
     .option('--file <path>', 'JSON file with updated data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -85,8 +87,9 @@ export const solutionsCommand = new Command('solutions')
       const result = await executeSolutionsUpdate({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('delete <id>')
+  .addCommand(new Command('delete')
     .description('Delete a solution')
+    .argument('<id>', 'Solution ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
@@ -95,8 +98,9 @@ export const solutionsCommand = new Command('solutions')
         console.log(formatOutput(result, options));
       }
     }))
-  .addCommand(new Command('patch <id>')
+  .addCommand(new Command('patch')
     .description('Patch a solution (JSON Patch)')
+    .argument('<id>', 'Solution ID')
     .option('--file <path>', 'JSON Patch file')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -104,8 +108,9 @@ export const solutionsCommand = new Command('solutions')
       const result = await executeSolutionsPatch({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('add-relation <id>')
+  .addCommand(new Command('add-relation')
     .description('Add a relation to a solution')
+    .argument('<id>', 'Solution ID')
     .option('--file <path>', 'JSON file with relation data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')

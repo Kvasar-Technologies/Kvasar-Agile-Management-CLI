@@ -48,8 +48,9 @@ export const servicesCommand = new Command('services')
       const result = await executeServicesList(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('get <id>')
+  .addCommand(new Command('get')
     .description('Get a service by ID')
+    .argument('<id>', 'Service ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
