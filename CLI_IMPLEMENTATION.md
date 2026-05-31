@@ -17,11 +17,11 @@ All core API endpoints have been implemented as CLI commands with the following 
 - `kvasar organizations` - get, update, delete, patch
 - `kvasar items` - get, update, delete, patch, add-relation
 - `kvasar epics` - list (with filters: organization, portfolio, state)
-- `kvasar epic` - create (POST /api/v1/items/ with Epic schema)
-- `kvasar feature` - create (POST /api/v1/items/ with Feature schema)
-- `kvasar userstory` - create (POST /api/v1/items/ with UserStory schema)
-- `kvasar enablerstory` - create (POST /api/v1/items/ with EnablerStory schema)
-- `kvasar issue` - create (POST /api/v1/items/ with Issue schema)
+- `kvasar epic create`   
+- `kvasar feature create`   
+- `kvasar userstory create`  
+- `kvasar enablerstory create`
+- `kvasar issue create` 
 - `kvasar kpis` - list, create, update
 - `kvasar kanbans` - list, create, update
 - `kvasar objectives` - list, update
