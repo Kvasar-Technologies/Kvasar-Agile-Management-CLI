@@ -48,8 +48,9 @@ export const systemsCommand = new Command('systems')
       const result = await executeSystemsList(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('get <id>')
+  .addCommand(new Command('get')
     .description('Get a system by ID')
+    .argument('<id>', 'System ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {

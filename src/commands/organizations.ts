@@ -45,16 +45,18 @@ export const organizationsCommand = new Command('organizations')
       const result = await executeOrganizationsList(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('get <id>')
+  .addCommand(new Command('get')
     .description('Get an organization by ID')
+    .argument('<id>', 'Organization ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
       const result = await executeOrganizationsGet({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('update <id>')
+  .addCommand(new Command('update')
     .description('Update an organization (PUT)')
+    .argument('<id>', 'Organization ID')
     .option('--file <path>', 'JSON file with updated data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -62,8 +64,9 @@ export const organizationsCommand = new Command('organizations')
       const result = await executeOrganizationsUpdate({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('delete <id>')
+  .addCommand(new Command('delete')
     .description('Delete an organization')
+    .argument('<id>', 'Organization ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
@@ -72,8 +75,9 @@ export const organizationsCommand = new Command('organizations')
         console.log(formatOutput(result, options));
       }
     }))
-  .addCommand(new Command('patch <id>')
+  .addCommand(new Command('patch')
     .description('Patch an organization (JSON Patch)')
+    .argument('<id>', 'Organization ID')
     .option('--file <path>', 'JSON Patch file')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
