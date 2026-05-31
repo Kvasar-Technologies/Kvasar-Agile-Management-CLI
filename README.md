@@ -95,7 +95,7 @@ All commands support:
 - `kvasar solutions` - Full CRUD + relations
 - `kvasar pis` - Program Increments (get, update, delete, add-sprint)
 - `kvasar portfolios` - List, create, update
-- `kvasar organizations` - Get, update, delete, patch
+- `kvasar organizations` - List, get, update, delete, patch
 - `kvasar items` - Get, update, delete, patch, add-relation (for epics, features, stories, etc.)
 - `kvasar epics` - List epics with filtering (organization, portfolio, state)
 - `kvasar epic` - Create epic
