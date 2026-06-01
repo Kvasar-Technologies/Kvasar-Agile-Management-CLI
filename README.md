@@ -1,21 +1,18 @@
 # Kvasar Agile Management CLI
+
 **AI-native, JSON-first CLI for Kvasar Agile Management.**
 
 https://landing.kvasar.tech
 
->Kvasar Agile Management has a powerful web platform for agile planning and SAFe execution — but there is no dedicated developer CLI for interacting with agile entities, AI workflows, portfolio planning, ARTs, PIs, epics, features, sprints, dependencies, or Jira integrations directly from the terminal.
-
-Kvasar CLI brings agile operations into:
-
-- the terminal
-- AI agents
-- automation workflows
-- MCP-compatible tools
-- CI/CD pipelines
-- developer environments
+> Kvasar Agile Management has a powerful web platform for agile planning and SAFe execution — but there is no dedicated developer CLI for interacting with agile entities, AI workflows, portfolio planning, ARTs, PIs, epics, features, sprints, dependencies, or Jira integrations directly from the terminal. Kvasar CLI brings agile operations into:
+> - the terminal
+> - AI agents
+> - automation workflows
+> - MCP-compatible tools
+> - CI/CD pipelines
+> - developer environments
 
 Built for:
-
 - Product Managers
 - RTEs
 - Agile Coaches
@@ -79,7 +76,6 @@ kvasar teams create --file data.json
 # Epics
 kvasar epics list
 kvasar epics list --organization <org-id> --portfolio <portfolio-id> --state <state>
-
 # And many more...
 ```
 
@@ -88,7 +84,7 @@ All commands support:
 - `--quiet` (exit codes only)
 - `--fields field1,field2` (filter output)
 
-# Kvasar CLI item creation
+## Creating Agile Items
 
 Use any of:
 - `kvasar epic create`
@@ -96,8 +92,6 @@ Use any of:
 - `kvasar userstory create`
 - `kvasar enablerstory create`
 - `kvasar issue create`
-
-Shorter than the old POST-style notes, and the item schema details are in `CLI_IMPLEMENTATION.md`.
 
 ## Command Groups
 
@@ -121,13 +115,12 @@ Shorter than the old POST-style notes, and the item schema details are in `CLI_I
 - `kvasar kanbans` - List, create, update (portfolio, program, solution, team)
 - `kvasar objectives` - List, update
 
-
 ## Development
 
 ```bash
 npm install
-npm run dev    # Run directly
-npm run build  # Build to dist/
+npm run dev      # Run directly
+npm run build    # Build to dist/
 npm run typecheck
 ```
 
