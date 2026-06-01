@@ -101,7 +101,7 @@ All commands support:
 - `kvasar epic create` - Create epic
 - `kvasar feature create` - Create feature
 - `kvasar userstory create` - Create user story
-- `kvasar enablerstory craete` - Create enabler story
+- `kvasar enablerstory create` - Create enabler story
 - `kvasar issue create` - Create issue
 - `kvasar teams` - List, create, update
 - `kvasar users` - List, create, update
