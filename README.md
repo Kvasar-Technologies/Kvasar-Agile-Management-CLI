@@ -97,12 +97,12 @@ All commands support:
 - `kvasar portfolios` - List, create, update
 - `kvasar organizations` - Get, update, delete, patch
 - `kvasar items` - Get, update, delete, patch, add-relation (for epics, features, stories, etc.)
-- `kvasar epics` - List epics with filtering (organization, portfolio, state)
-- `kvasar epic` - Create epic
-- `kvasar feature` - Create feature
-- `kvasar userstory` - Create user story
-- `kvasar enablerstory` - Create enabler story
-- `kvasar issue` - Create issue
+- `kvasar epics list` - List epics with filtering (organization, portfolio, state)
+- `kvasar epic create` - Create epic
+- `kvasar feature create` - Create feature
+- `kvasar userstory create` - Create user story
+- `kvasar enablerstory craete` - Create enabler story
+- `kvasar issue create` - Create issue
 - `kvasar teams` - List, create, update
 - `kvasar users` - List, create, update
 - `kvasar arts` - List, create, update (Agile Release Trains)
