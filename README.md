@@ -88,6 +88,17 @@ All commands support:
 - `--quiet` (exit codes only)
 - `--fields field1,field2` (filter output)
 
+# Kvasar CLI item creation
+
+Use any of:
+- `kvasar epic create`
+- `kvasar feature create`
+- `kvasar userstory create`
+- `kvasar enablerstory create`
+- `kvasar issue create`
+
+Shorter than the old POST-style notes, and the item schema details are in `CLI_IMPLEMENTATION.md`.
+
 ## Command Groups
 
 - `kvasar value-streams` - Full CRUD + stages, solutions, arts, copy
