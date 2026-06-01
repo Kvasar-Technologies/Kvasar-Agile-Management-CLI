@@ -110,6 +110,10 @@ All commands support:
 - `kvasar kanbans` - List, create, update (portfolio, program, solution, team)
 - `kvasar objectives` - List, update
 
+## Artifact Structures
+
+See [ARTIFACT_STRUCTURES.md](ARTIFACT_STRUCTURES.md) for detailed field reference and JSON schemas for all agile artifacts (Epics, Features, User Stories, Enabler Stories).
+
 
 ## Development
 
