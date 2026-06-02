@@ -57,31 +57,6 @@ Follow the browser-based flow to authenticate.
 ### Example Commands
 
 ```bash
-# Value Streams
-kvasar value-streams list
-kvasar value-streams get <id>
-kvasar value-streams create --file data.json
-
-# Strategic Themes
-kvasar strategic-themes list
-kvasar strategic-themes create --file data.json
-kvasar strategic-themes add-keyresult <id> --file kr.json
-
-# Solutions
-kvasar solutions list
-kvasar solutions create --file data.json
-kvasar solutions add-relation <id> --file relation.json
-
-# Teams
-kvasar teams list
-kvasar teams create --file data.json
-
-# Items
-kvasar items list --parentId <parentId> --page 0 --size 20 --sort field:direction
-kvasar items children <parentId>
-kvasar items get <id>
-kvasar items update <id> --file data.json
-kvasar items delete <id>
 
 # Items
 
@@ -114,6 +89,32 @@ kvasar items delete <id>
 # Epics
 kvasar epics list
 kvasar epics list --organization <org-id> --portfolio <portfolio-id> --state <state>
+
+
+# Teams
+kvasar teams list
+kvasar teams create --file data.json
+
+
+# Value Streams
+kvasar value-streams list
+kvasar value-streams get <id>
+kvasar value-streams create --file data.json
+
+# Strategic Themes
+kvasar strategic-themes list
+kvasar strategic-themes create --file data.json
+kvasar strategic-themes add-keyresult <id> --file kr.json
+
+# Solutions
+kvasar solutions list
+kvasar solutions create --file data.json
+kvasar solutions add-relation <id> --file relation.json
+
+
+
+
+
 
 # And many more...
 ```
