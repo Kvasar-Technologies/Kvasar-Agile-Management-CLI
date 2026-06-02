@@ -315,7 +315,7 @@ export class KvasarClient {
   if (filters.sort) query.set('sort', filters.sort);
 
   // Hierarchy
-  if (filters.parentId) query.set('parentId', filters.parentId);
+  if (filters.parentId) query.set('parent', filters.parentId);
   if (filters.kanbanId) query.set('kanbanId', filters.kanbanId);
 
   // Type & State
