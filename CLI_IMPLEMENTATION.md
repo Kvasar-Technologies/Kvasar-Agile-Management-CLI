@@ -48,3 +48,46 @@ Authentication uses Auth0 Device Authorization Flow:
 - `kvasar whoami` - Show current user
 
 Tokens are securely stored using system keychain/keytar.
+
+## Pagination Response Format
+
+List operations (e.g., `kvasar items list`) return a paginated response with the following JSON structure:
+
+```json
+{
+  "content": [],           // Array of items (empty if no results)
+  "totalElements": 0,      // Total number of items across all pages
+  "totalPages": 0,         // Total number of pages
+  "sort": {                // Sorting metadata
+    "sorted": false,
+    "empty": true,
+    "unsorted": true
+  },
+  "size": 20,              // Page size (items per page)
+  "pageable": {            // Pagination metadata
+    "pageNumber": 0,       // Current page number (0-based)
+    "pageSize": 20,        // Number of items per page
+    "sort": {              // Sort applied
+      "sorted": false,
+      "empty": true,
+      "unsorted": true
+    },
+    "offset": 0,           // Offset into the dataset
+    "paged": true,         // Whether result is paginated
+    "unpaged": false       // Whether result is unpaged
+  },
+  "numberOfElements": 0,   // Number of elements in current page
+  "number": 0,             // Current page number (0-based)
+  "first": true,           // Whether this is the first page
+  "last": true,            // Whether this is the last page
+  "empty": true            // Whether the content array is empty
+}
+```
+
+### Notes
+
+- **`content`** contains the actual items (artifacts) for the current page
+- Pagination parameters: `--page` (0-based), `--size` (items per page), `--sort` (e.g., `itemName:asc`)
+- Use `--page` and `--size` to navigate through pages
+- Check `empty`, `first`, and `last` to understand pagination state
+- `totalElements` and `totalPages` help calculate whether more pages exist
