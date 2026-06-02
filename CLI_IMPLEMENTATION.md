@@ -91,3 +91,30 @@ List operations (e.g., `kvasar items list`) return a paginated response with the
 - Use `--page` and `--size` to navigate through pages
 - Check `empty`, `first`, and `last` to understand pagination state
 - `totalElements` and `totalPages` help calculate whether more pages exist
+
+## JSON Patch Support
+
+The `items patch` command uses JSON Patch (RFC 6902) to partially update items. The backend expects:
+- Content-Type: `application/json-patch+json`
+- Body: array of patch operations, e.g.:
+  ```json
+  [
+    { "op": "replace", "path": "/itemName", "value": "New Name" }
+  ]
+  ```
+
+For user convenience, the CLI accepts either:
+1. **JSON Patch array** (as above)
+2. **Simple object** with fields to update – auto-converted to `replace` operations:
+   ```json
+   { "itemName": "New Name", "description": "Updated description" }
+   ```
+
+The auto-conversion maps each top-level field to `/fieldName` path with `replace` operation.
+
+### Important Notes
+- Use `items update` for full replacements (PUT)
+- Patch paths must start with `/` and use JSON Pointer notation
+- Supported operations: `replace` (add via replace also works for existing fields)
+- Patching `parentId` triggers color inheritance
+- Patching `columnId` + `kanbanId` together may set `index` and `released` flags
