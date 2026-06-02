@@ -325,6 +325,17 @@ These fields are inherited from the base `Item` schema and are required for all 
 
 ---
 
+## Fetching Child Items
+
+Use the dedicated `children` endpoint to retrieve all direct children of an item:
+
+- **CLI**: `kvasar items children <parentId>`
+- **API**: `GET /api/v1/items/{parentId}/children`
+
+For nested hierarchies, recursively fetch children of each item.
+
+---
+
 ## Field Type Reference
 
 | Type | Description | Example |

@@ -235,20 +235,7 @@ export class KvasarClient {
       }
       return this.get(`/api/v1/solutions/?${params.toString()}`);
     }
-
-    // ========== Roadmaps ==========
-  async listRoadmaps(): Promise<any> {
-    return this.get('/api/v1/roadmaps/');
-  }
-
-  async createRoadMap(body: any): Promise<any> {
-    return this.post('/api/v1/roadmaps/', body);
-  }
-
-  async updateRoadMap(body: any): Promise<any> {
-    return this.put('/api/v1/roadmaps/', body);
-  }
-
+ 
   // ========== Portfolios ==========
   async listPortfolios(): Promise<any> {
     return this.get('/api/v1/portfolios/');
@@ -301,21 +288,52 @@ export class KvasarClient {
   }
 
   // ========== Items ==========
-  async listItems(filters: { numeration?: string; parentId?: string } = {}): Promise<any> {
-    const query = new URLSearchParams();
+  async listItems(filters: {
+  // Pagination
+  page?: number;
+  size?: number;
+  sort?: string;
+  // Hierarchy
+  parentId?: string;
+  kanbanId?: string;
+  // Type & State
+  name?: string;              // discriminator: epic, feature, userstory, defect, spike, issue...
+  itemType?: string;          // BUSINESS or ENABLER
+  columnId?: string;          // kanban column/state
+  // Content
+  itemName?: string;          // regex, case-insensitive
+  description?: string;       // regex, case-insensitive
+  // Ownership & Portfolio
+  ownerId?: string;
+  portfolioId?: string;
+} = {}): Promise<any> {
+  const query = new URLSearchParams();
 
-    if (filters.numeration) {
-      query.set('numeration', filters.numeration);
-    }
+  // Pagination
+  if (filters.page !== undefined) query.set('page', filters.page.toString());
+  if (filters.size !== undefined) query.set('size', filters.size.toString());
+  if (filters.sort) query.set('sort', filters.sort);
 
-    if (filters.parentId) {
-      query.set('parentId', filters.parentId);
-    }
+  // Hierarchy
+  if (filters.parentId) query.set('parentId', filters.parentId);
+  if (filters.kanbanId) query.set('kanbanId', filters.kanbanId);
 
-    const queryString = query.toString();
-    return this.get(`/api/v1/items/${queryString ? `?${queryString}` : ''}`);
-  }
+  // Type & State
+  if (filters.name) query.set('name', filters.name);
+  if (filters.itemType) query.set('itemType', filters.itemType);
+  if (filters.columnId) query.set('columnId', filters.columnId);
 
+  // Content search (regex)
+  if (filters.itemName) query.set('itemName', filters.itemName);
+  if (filters.description) query.set('description', filters.description);
+
+  // Ownership
+  if (filters.ownerId) query.set('ownerId', filters.ownerId);
+  if (filters.portfolioId) query.set('portfolioId', filters.portfolioId);
+
+  const queryString = query.toString();
+  return this.get(`/api/v1/items/paging/${queryString ? `?${queryString}` : ''}`);
+}
   async getItem(id: string): Promise<any> {
     return this.get(`/api/v1/items/${id}`);
   }
@@ -336,11 +354,15 @@ export class KvasarClient {
     return this.patch(`/api/v1/items/${id}`, body);
   }
 
-   async addItemRelation(featureId: string, relation: any): Promise<any> {
-     return this.put(`/api/v1/items/${featureId}/relations`, relation);
-   }
+    async addItemRelation(featureId: string, relation: any): Promise<any> {
+      return this.put(`/api/v1/items/${featureId}/relations`, relation);
+    }
 
-   // ========== Epics ==========
+    async getChildren(parentId: string): Promise<any> {
+      return this.get(`/api/v1/items/${parentId}/children`);
+    }
+
+    // ========== Epics ==========
    async listEpics(): Promise<any> {
      return this.get('/api/v1/items/epics/');
    }

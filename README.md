@@ -76,6 +76,41 @@ kvasar solutions add-relation <id> --file relation.json
 kvasar teams list
 kvasar teams create --file data.json
 
+# Items
+kvasar items list --parentId <parentId> --page 0 --size 20 --sort field:direction
+kvasar items children <parentId>
+kvasar items get <id>
+kvasar items update <id> --file data.json
+kvasar items delete <id>
+
+# Items
+
+## List & Search
+kvasar items list [--parentId <id>] [--kanbanId <id>] [--portfolioId <id>] [--ownerId <id>]
+                  [--name <type>] [--itemType <BUSINESS|ENABLER>] [--columnId <id>]
+                  [--itemName <text>] [--description <text>]
+                  [--page <n>] [--size <n>] [--sort <field:direction>]
+
+# --name filters by item type: epic, feature, userstory, enablerstory, defect, spike, issue
+# --itemName and --description support partial match (case-insensitive)
+
+## Examples
+kvasar items list --name epic
+kvasar items list --name feature --portfolioId <id>
+kvasar items list --itemName "login" --kanbanId <id>
+kvasar items list --itemType BUSINESS --page 0 --size 20 --sort itemName:asc
+
+## Hierarchy
+kvasar items children <parentId> [--output <json|pretty>] [--quiet]
+kvasar items list --parentId <id>
+
+# Examples
+kvasar items children 507f1f77bcf86cd799439011
+kvasar items children 507f1f77bcf86cd799439011 --output pretty
+
+## Mutations
+kvasar items update <id> --file data.json
+kvasar items delete <id>
 # Epics
 kvasar epics list
 kvasar epics list --organization <org-id> --portfolio <portfolio-id> --state <state>
@@ -96,7 +131,7 @@ All commands support:
 - `kvasar pis` - Program Increments (get, update, delete, add-sprint)
 - `kvasar portfolios` - List, create, update
 - `kvasar organizations` - List, get, update, delete, patch
-- `kvasar items` - Get, update, delete, patch, add-relation (for epics, features, stories, etc.)
+- `kvasar items` - Full CRUD: list (with pagination), get, get-by-key, update, delete, patch, add-relation, children (for epics, features, stories, etc.)
 - `kvasar epics list` - List epics with filtering (organization, portfolio, state)
 - `kvasar epic create` - Create epic
 - `kvasar feature create` - Create feature
