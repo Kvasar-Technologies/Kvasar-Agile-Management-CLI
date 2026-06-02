@@ -43,7 +43,21 @@ export async function executeItemsDelete(args: { id: string; output?: string; qu
 
 export async function executeItemsPatch(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : [];
+  let body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : [];
+
+  // Convert simple object to JSON Patch array with replace operations
+  if (!Array.isArray(body)) {
+    const patchOps = [];
+    for (const [key, value] of Object.entries(body)) {
+      patchOps.push({
+        op: 'replace',
+        path: `/${key}`,
+        value: value
+      });
+    }
+    body = patchOps;
+  }
+
   const data = await client.patchItem(args.id, body);
   return { data };
 }
@@ -124,16 +138,16 @@ export const itemsCommand = new Command('items')
         console.log(formatOutput(result, options));
       }
     }))
-  .addCommand(new Command('patch')
-    .description('Patch an item (JSON Patch)')
-    .argument('<id>', 'Item ID')
-    .option('--file <path>', 'JSON Patch file')
-    .option('--output <format>', 'Output format: json or pretty', 'json')
-    .option('--quiet', 'Suppress output')
-    .action(async (id, options) => {
-      const result = await executeItemsPatch({ id, ...options });
-      console.log(formatOutput(result.data, options));
-    }))
+   .addCommand(new Command('patch')
+     .description('Patch an item using JSON Patch (RFC 6902)\n\nAccepts either:\n- JSON Patch array: [{"op":"replace","path":"/itemName","value":"New Name"}]\n- Simple object (auto-converted): {"itemName":"New Name"}')
+     .argument('<id>', 'Item ID')
+     .option('--file <path>', 'JSON file with patch operations or simple object')
+     .option('--output <format>', 'Output format: json or pretty', 'json')
+     .option('--quiet', 'Suppress output')
+     .action(async (id, options) => {
+       const result = await executeItemsPatch({ id, ...options });
+       console.log(formatOutput(result.data, options));
+     }))
   .addCommand(new Command('add-relation')
     .description('Add a relation to an item')
     .argument('<id>', 'Item ID')
