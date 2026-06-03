@@ -95,6 +95,9 @@ kvasar epics list --organization <org-id> --portfolio <portfolio-id> --state <st
 kvasar teams list
 kvasar teams create --file data.json
 
+# Kanbans
+kasar kanbans get <kanban-id>
+
 
 # Value Streams
 kvasar value-streams list
