@@ -439,6 +439,10 @@ export class KvasarClient {
     return this.post('/api/v1/kanbans/', body);
   }
 
+  async getKanban(id: string): Promise<any> {
+    return this.get(`/api/v1/kanbans/${id}`);
+  }
+
   async updateKanban(body: any): Promise<any> {
     return this.put('/api/v1/kanbans/', body);
   }
