@@ -136,11 +136,14 @@ kasar kanbans get <kanban-id>
 
 ## Task / Requirements Management
 
-## Type of tasks and requirements:
+- Each **Epic** can be broken down into one or more **Features**.
+- Features can contain **User Stories**, **Enabler Stories**, and **Issues**
 
-epic, feature, userstory, enablerstory, issue
+### Type of tasks and requirements
 
-## Requirements Hierarchy Breakdown
+epic, feature, userstory, enablerstory, issue  
+
+### Requirements Hierarchy Breakdown  
 
 [EPIC]
    │
@@ -151,10 +154,9 @@ epic, feature, userstory, enablerstory, issue
    ▼            ▼            ▼
 [USER STORY] [ENABLER] [ISSUE]
 
+
+
 ```bash
-
-
-
 ## Single Epic
 kvasar **epic** create
 
