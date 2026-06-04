@@ -117,7 +117,7 @@ kvasar value-streams create --file data.json
 
 ## Notes
 
-- Every ART (Agile Release Train) has a dedicated **Program Kanban**.
+- Every ART (Agile Release Train) has a dedicated **Program Kanban**. (ART= multiple teams)
 - **Features** are the top-level work items within a Program Kanban.
 - **Features** are the requirements that flow through the Program Kanban.
 - Each **Feature** can be broken down into one or more **User Stories**, **Enabler Stories**, and **Issues**.
