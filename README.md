@@ -163,12 +163,12 @@ epic, feature, userstory, enablerstory, issue
 
 ```bash
 
-[EPIC]
-   │
-   ▼
-[FEATURE]
-   │
-   ├────────────┬────────────┐
+              [EPIC]
+                │
+                ▼
+            [FEATURE]
+                │
+   ┌────────────├────────────┐
    ▼            ▼            ▼
 [USER STORY] [ENABLER] [ISSUE]
 
