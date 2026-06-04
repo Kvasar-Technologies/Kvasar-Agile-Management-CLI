@@ -174,13 +174,6 @@ kvasar epics list
 kvasar epics list --organization <org-id> --portfolio <portfolio-id> --state <state>
 
 
-# Teams
-kvasar teams list
-kvasar teams create --file data.json
-
-# Kanbans
-kasar kanbans get <kanban-id>
-
 
 
 
