@@ -160,7 +160,7 @@ epic, feature, userstory, enablerstory, issue
 
 
 ## Single Epic
-kvasar **epic** create
+kvasar epic create
 
 # Items
 kvasar items list --parentId <parentId> --page 0 --size 20 --sort field:direction
