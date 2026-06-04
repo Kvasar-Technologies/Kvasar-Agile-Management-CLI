@@ -145,6 +145,9 @@ epic, feature, userstory, enablerstory, issue
 
 ### Requirements Hierarchy Breakdown  
 
+
+```bash
+
 [EPIC]
    │
    ▼
@@ -156,7 +159,6 @@ epic, feature, userstory, enablerstory, issue
 
 
 
-```bash
 ## Single Epic
 kvasar **epic** create
 
