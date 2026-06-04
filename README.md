@@ -55,11 +55,16 @@ kvasar login
 Follow the browser-based flow to authenticate.
 
 
-## Organization management
+## Organization & Business management
+
+
 ### Example Commands
 
 
 ```bash
+
+## Organization
+kvasar organizations list
 
 # Solutions
 kvasar solutions list
@@ -78,6 +83,10 @@ kvasar solutions add-relation <id> --file relation.json
 kvasar portfolios list
 kvasar portfolios get <id>
 kvasar portfolios create --file data.json
+
+
+# Get portfolio Kanban
+kasar kanbans get <kanban-id>
 
 # Strategic Themes
 kvasar strategic-themes list
@@ -100,9 +109,15 @@ kvasar value-streams create --file data.json
 kvasar teams list
 kvasar teams create --file data.json
 
+# Get Team Kanban
+kasar kanbans get <kanban-id>
+
 # Arts
 kvasar arts list
 kvasar arts create --file data.json
+
+# Get Program Kanban
+kasar kanbans get <kanban-id>
 
 ```
 
@@ -159,6 +174,21 @@ kvasar items delete <id>
 # Epics
 kvasar epics list
 kvasar epics list --organization <org-id> --portfolio <portfolio-id> --state <state>
+
+
+# Teams
+kvasar teams list
+kvasar teams create --file data.json
+
+# Kanbans
+kasar kanbans get <kanban-id>
+
+
+
+
+
+
+
 
 # And many more...
 ```

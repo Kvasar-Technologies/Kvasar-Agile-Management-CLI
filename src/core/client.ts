@@ -180,7 +180,9 @@ export class KvasarClient {
   }
 
   async patchStrategicTheme(id: string, body: any): Promise<any> {
-    return this.patch(`/api/v1/strategicthemes/${id}`, body);
+    return this.patch(`/api/v1/strategicthemes/${id}`, body, {
+      headers: { 'Content-Type': 'application/json-patch+json' }
+    });
   }
 
   async addKeyResult(strategicThemeId: string, keyResult: any): Promise<any> {
@@ -213,7 +215,9 @@ export class KvasarClient {
   }
 
   async patchSolution(id: string, body: any): Promise<any> {
-    return this.patch(`/api/v1/solutions/${id}`, body);
+    return this.patch(`/api/v1/solutions/${id}`, body, {
+      headers: { 'Content-Type': 'application/json-patch+json' }
+    });
   }
 
     async addRelation(solutionId: string, relation: any): Promise<any> {
@@ -283,9 +287,11 @@ export class KvasarClient {
     return this.delete(`/api/v1/organizations/${id}`);
   }
 
-  async patchOrganization(id: string, body: any): Promise<any> {
-    return this.patch(`/api/v1/organizations/${id}`, body);
-  }
+   async patchOrganization(id: string, body: any): Promise<any> {
+     return this.patch(`/api/v1/organizations/${id}`, body, {
+       headers: { 'Content-Type': 'application/json-patch+json' }
+     });
+   }
 
   // ========== Items ==========
   async listItems(filters: {
@@ -315,7 +321,7 @@ export class KvasarClient {
   if (filters.sort) query.set('sort', filters.sort);
 
   // Hierarchy
-  if (filters.parentId) query.set('parentId', filters.parentId);
+  if (filters.parentId) query.set('parent', filters.parentId);
   if (filters.kanbanId) query.set('kanbanId', filters.kanbanId);
 
   // Type & State
@@ -350,9 +356,11 @@ export class KvasarClient {
     return this.delete(`/api/v1/items/${id}`);
   }
 
-  async patchItem(id: string, body: any): Promise<any> {
-    return this.patch(`/api/v1/items/${id}`, body);
-  }
+   async patchItem(id: string, body: any): Promise<any> {
+     return this.patch(`/api/v1/items/${id}`, body, {
+       headers: { 'Content-Type': 'application/json-patch+json' }
+     });
+   }
 
     async addItemRelation(featureId: string, relation: any): Promise<any> {
       return this.put(`/api/v1/items/${featureId}/relations`, relation);
@@ -429,6 +437,10 @@ export class KvasarClient {
 
   async createKanban(body: any): Promise<any> {
     return this.post('/api/v1/kanbans/', body);
+  }
+
+  async getKanban(id: string): Promise<any> {
+    return this.get(`/api/v1/kanbans/${id}`);
   }
 
   async updateKanban(body: any): Promise<any> {
