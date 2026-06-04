@@ -219,14 +219,6 @@ kvasar items delete <id>
 kvasar epics list
 kvasar epics list --organization <org-id> --portfolio <portfolio-id> --state <state>
 
-
-
-
-
-
-
-
-
 # And many more...
 ```
 
