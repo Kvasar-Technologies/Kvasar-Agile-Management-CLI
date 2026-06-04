@@ -113,7 +113,7 @@ kvasar value-streams create --file data.json
 
 ```
 
-## Team and Agile Release Trains (ARTs) managment
+## Team and Agile Release Trains (ARTs) management
 
 ```bash
 
