@@ -126,6 +126,14 @@ kasar kanbans get <kanban-id>
 
 epic, feature, userstory, enablerstory, issue
 
+## Requirements Hierarchy
+
+- Epic
+  - Feature
+    - User Story
+    - Enabler Story
+    - Issue
+
 ```bash
 
 # Epics List
