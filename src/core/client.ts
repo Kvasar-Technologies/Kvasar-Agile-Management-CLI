@@ -271,11 +271,15 @@ export class KvasarClient {
   }
 
   // ========== Organizations ==========
-  async listOrganizations(): Promise<any> {
-    return this.get('/api/v1/organizations/');
-  }
+   async listOrganizations(): Promise<any> {
+     return this.get('/api/v1/organizations/');
+   }
 
-  async getOrganization(id: string): Promise<any> {
+   async createOrganization(body: any): Promise<any> {
+     return this.post('/api/v1/organizations/', body);
+   }
+
+   async getOrganization(id: string): Promise<any> {
     return this.get(`/api/v1/organizations/${id}`);
   }
 

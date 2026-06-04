@@ -9,6 +9,13 @@ export async function executeOrganizationsGet(args: { id: string; output?: strin
   return { data };
 }
 
+export async function executeOrganizationsCreate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
+  const client = await getClient();
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
+  const data = await client.createOrganization(body);
+  return { data };
+}
+
 export async function executeOrganizationsUpdate(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
   const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
@@ -57,6 +64,15 @@ export const organizationsCommand = new Command('organizations')
     .option('--quiet', 'Suppress output')
     .action(async (options) => {
       const result = await executeOrganizationsList(options);
+      console.log(formatOutput(result.data, options));
+    }))
+  .addCommand(new Command('create')
+    .description('Create an organization')
+    .option('--file <path>', 'JSON file with organization data')
+    .option('--output <format>', 'Output format: json or pretty', 'json')
+    .option('--quiet', 'Suppress output')
+    .action(async (options) => {
+      const result = await executeOrganizationsCreate(options);
       console.log(formatOutput(result.data, options));
     }))
   .addCommand(new Command('get')

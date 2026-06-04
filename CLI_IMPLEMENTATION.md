@@ -14,7 +14,8 @@ All core API endpoints have been implemented as CLI commands with the following 
 - `kvasar systems` - list, get, create (wraps solutions with type="system")
 - `kvasar portfolios` - list, create, update
 - `kvasar pis` - get, update, delete, add-sprint
-- `kvasar organizations` - list, get, update, delete, patch
+- `kvasar organizations` - list, get, create, update, delete, patch
+  - `create`: Accepts JSON with `name` (optional), `logo` (optional), `file` (optional)
 - `kvasar items` - list (paged), get, get-by-key, update, delete, patch, add-relation, children
 - `kvasar epics` - list (with filters: organization, portfolio, state)
 - `kvasar epic create`   

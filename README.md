@@ -65,6 +65,13 @@ Follow the browser-based flow to authenticate.
 
 ## Organization
 kvasar organizations list
+# Create with minimal JSON: {"name": "My Org"}
+kvasar organizations create --file org.json
+
+ `create`: Accepts JSON with `name` (optional), `logo` (optional), 
+kvasar organizations get <id>
+kvasar organizations update <id> --file org.json
+kvasar organizations delete <id>
 
 # Solutions
 kvasar solutions list
@@ -234,7 +241,7 @@ All commands support:
 - `kvasar solutions` - Full CRUD + relations
 - `kvasar pis` - Program Increments (get, update, delete, add-sprint)
 - `kvasar portfolios` - List, create, update
-- `kvasar organizations` - List, get, update, delete, patch
+- `kvasar organizations` - List, get, create, update, delete, patch
 - `kvasar items` - Full CRUD: list (with pagination), get, get-by-key, update, delete, patch, add-relation, children (for epics, features, stories, etc.)
 - `kvasar epics list` - List epics with filtering (organization, portfolio, state)
 - `kvasar epic create` - Create epic
