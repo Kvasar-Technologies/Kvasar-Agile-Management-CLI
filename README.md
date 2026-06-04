@@ -122,6 +122,10 @@ kasar kanbans get <kanban-id>
 
 ## Task / Requirements Management
 
+## Type of tasks and requirements:
+
+epic, feature, userstory, enablerstory, issue
+
 ```bash
 
 # Epics List
