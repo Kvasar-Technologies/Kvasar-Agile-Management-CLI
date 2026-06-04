@@ -76,6 +76,11 @@ kvasar solutions add-relation <id> --file relation.json
 
 ## Lean Portfolio Management
 
+- Every Portfolio has a dedicated **Portfolio Kanban**.
+- **Epics** are the top-level work items within a Portfolio Kanban.
+- Each **Epic** can be broken down into one or more **Features**.
+- Features can contain **User Stories**, **Enabler Stories**, and **Issues**.
+
 ### Example Commands
 
 ```bash
@@ -88,12 +93,7 @@ kvasar portfolios create --file data.json
 # Get portfolio Kanban
 kasar kanbans get <kanban-id>
 
-## Notes
 
-- Every Portfolio has a dedicated **Portfolio Kanban**.
-- **Epics** are the top-level work items within a Portfolio Kanban.
-- Each **Epic** can be broken down into one or more **Features**.
-- Features can contain **User Stories**, **Enabler Stories**, and **Issues**.
 
 # Epics List (Epics are the only items in Portfolio Kanban)
 kvasar epics list
