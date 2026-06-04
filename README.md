@@ -54,27 +54,69 @@ kvasar login
 
 Follow the browser-based flow to authenticate.
 
+
+## Organization management
 ### Example Commands
 
-```bash
-# Value Streams
-kvasar value-streams list
-kvasar value-streams get <id>
-kvasar value-streams create --file data.json
 
-# Strategic Themes
-kvasar strategic-themes list
-kvasar strategic-themes create --file data.json
-kvasar strategic-themes add-keyresult <id> --file kr.json
+```bash
 
 # Solutions
 kvasar solutions list
 kvasar solutions create --file data.json
 kvasar solutions add-relation <id> --file relation.json
 
+
+```
+
+## Lean Portfolio Management
+### Example Commands
+
+```bash
+
+# Portofolios
+kvasar portfolios list
+kvasar portfolios get <id>
+kvasar portfolios create --file data.json
+
+# Strategic Themes
+kvasar strategic-themes list
+kvasar strategic-themes create --file data.json
+kvasar strategic-themes add-keyresult <id> --file kr.json
+
+
+# Value Streams
+kvasar value-streams list
+kvasar value-streams get <id>
+kvasar value-streams create --file data.json
+
+```
+
+## Team and Agile Release Trains (ARTs) managment
+
+```bash
+
 # Teams
 kvasar teams list
 kvasar teams create --file data.json
+
+# Arts
+kvasar arts list
+kvasar arts create --file data.json
+
+```
+
+
+## Task / Requirements Management
+
+```bash
+
+# Epics List
+kvasar epics list
+kvasar epics list --organization <org-id> --portfolio <portfolio-id> --state <state>
+
+## Single Epic
+kvasar **epic** create
 
 # Items
 kvasar items list --parentId <parentId> --page 0 --size 20 --sort field:direction
@@ -83,7 +125,7 @@ kvasar items get <id>
 kvasar items update <id> --file data.json
 kvasar items delete <id>
 
-# Items
+
 
 ## List & Search
 kvasar items list [--parentId <id>] [--kanbanId <id>] [--portfolioId <id>] [--ownerId <id>]
@@ -111,6 +153,9 @@ kvasar items children 507f1f77bcf86cd799439011 --output pretty
 ## Mutations
 kvasar items update <id> --file data.json
 kvasar items delete <id>
+
+## Special Requirement Elements
+
 # Epics
 kvasar epics list
 kvasar epics list --organization <org-id> --portfolio <portfolio-id> --state <state>
