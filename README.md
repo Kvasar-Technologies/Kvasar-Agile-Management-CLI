@@ -84,6 +84,8 @@ kvasar portfolios list
 kvasar portfolios get <id>
 kvasar portfolios create --file data.json
 
+kvasar epics list (with filters: organization, portfolio, state)
+
 # Get portfolio Kanban
 kasar kanbans get <kanban-id>
 
