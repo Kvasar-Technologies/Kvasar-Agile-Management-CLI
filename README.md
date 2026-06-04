@@ -84,7 +84,6 @@ kvasar portfolios list
 kvasar portfolios get <id>
 kvasar portfolios create --file data.json
 
-
 # Get portfolio Kanban
 kasar kanbans get <kanban-id>
 
@@ -92,7 +91,6 @@ kasar kanbans get <kanban-id>
 kvasar strategic-themes list
 kvasar strategic-themes create --file data.json
 kvasar strategic-themes add-keyresult <id> --file kr.json
-
 
 # Value Streams
 kvasar value-streams list
