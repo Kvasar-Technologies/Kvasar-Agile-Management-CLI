@@ -23,6 +23,16 @@ Built for:
 - AI Agents
 - Enterprise Automation
 
+## AI Model Compatibility
+
+> ⚠️ Known performance issues with specific models when used in a skill
+
+The following model has been observed to have **low performance** when used with this plugin inside a skill:
+
+| Model | Performance | Note |
+|-------|-------------|------|
+| `Mistralai/mistral-nemotron` | Low | Poor performance when used in a skill |
+
 ## Quick Start
 
 ### Installation
