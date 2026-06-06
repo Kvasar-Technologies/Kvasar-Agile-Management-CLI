@@ -9,6 +9,13 @@ export async function executeOrganizationsGet(args: { id: string; output?: strin
   return { data };
 }
 
+export async function executeOrganizationsCreate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
+  const client = await getClient();
+  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
+  const data = await client.createOrganization(body);
+  return { data };
+}
+
 export async function executeOrganizationsUpdate(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
   const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
@@ -24,7 +31,21 @@ export async function executeOrganizationsDelete(args: { id: string; output?: st
 
 export async function executeOrganizationsPatch(args: { id: string; file?: string; output?: string; quiet?: boolean }): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : [];
+  let body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : [];
+
+  // Convert simple object to JSON Patch array with replace operations
+  if (!Array.isArray(body)) {
+    const patchOps = [];
+    for (const [key, value] of Object.entries(body)) {
+      patchOps.push({
+        op: 'replace',
+        path: `/${key}`,
+        value: value
+      });
+    }
+    body = patchOps;
+  }
+
   const data = await client.patchOrganization(args.id, body);
   return { data };
 }
@@ -45,16 +66,27 @@ export const organizationsCommand = new Command('organizations')
       const result = await executeOrganizationsList(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('get <id>')
+  .addCommand(new Command('create')
+    .description('Create an organization')
+    .option('--file <path>', 'JSON file with organization data')
+    .option('--output <format>', 'Output format: json or pretty', 'json')
+    .option('--quiet', 'Suppress output')
+    .action(async (options) => {
+      const result = await executeOrganizationsCreate(options);
+      console.log(formatOutput(result.data, options));
+    }))
+  .addCommand(new Command('get')
     .description('Get an organization by ID')
+    .argument('<id>', 'Organization ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
       const result = await executeOrganizationsGet({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('update <id>')
+  .addCommand(new Command('update')
     .description('Update an organization (PUT)')
+    .argument('<id>', 'Organization ID')
     .option('--file <path>', 'JSON file with updated data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -62,8 +94,9 @@ export const organizationsCommand = new Command('organizations')
       const result = await executeOrganizationsUpdate({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('delete <id>')
+  .addCommand(new Command('delete')
     .description('Delete an organization')
+    .argument('<id>', 'Organization ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
@@ -72,9 +105,10 @@ export const organizationsCommand = new Command('organizations')
         console.log(formatOutput(result, options));
       }
     }))
-  .addCommand(new Command('patch <id>')
-    .description('Patch an organization (JSON Patch)')
-    .option('--file <path>', 'JSON Patch file')
+  .addCommand(new Command('patch')
+    .description('Patch an organization using JSON Patch (RFC 6902)\n\nAccepts either:\n- JSON Patch array: [{"op":"replace","path":"/name","value":"New"}]\n- Simple object (auto-converted): {"name":"New"}')
+    .argument('<id>', 'Organization ID')
+    .option('--file <path>', 'JSON file with patch operations or simple object')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {

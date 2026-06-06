@@ -31,16 +31,18 @@ export async function executePIsAddSprint(args: { id: string; file?: string; out
 
 export const pisCommand = new Command('pis')
   .description('Manage Program Increments')
-  .addCommand(new Command('get <id>')
+  .addCommand(new Command('get')
     .description('Get a PI by ID')
+    .argument('<id>', 'Program Increment ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
       const result = await executePIsGet({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('update <id>')
+  .addCommand(new Command('update')
     .description('Update a PI (PUT)')
+    .argument('<id>', 'Program Increment ID')
     .option('--file <path>', 'JSON file with updated data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
@@ -48,8 +50,9 @@ export const pisCommand = new Command('pis')
       const result = await executePIsUpdate({ id, ...options });
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('delete <id>')
+  .addCommand(new Command('delete')
     .description('Delete a PI')
+    .argument('<id>', 'Program Increment ID')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')
     .action(async (id, options) => {
@@ -58,8 +61,9 @@ export const pisCommand = new Command('pis')
         console.log(formatOutput(result, options));
       }
     }))
-  .addCommand(new Command('add-sprint <id>')
+  .addCommand(new Command('add-sprint')
     .description('Add a sprint to a PI')
+    .argument('<id>', 'Program Increment ID')
     .option('--file <path>', 'JSON file with sprint data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')

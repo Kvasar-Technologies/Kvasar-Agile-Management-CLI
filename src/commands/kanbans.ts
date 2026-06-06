@@ -23,6 +23,12 @@ export async function executeKanbansUpdate(args: { file?: string; output?: strin
   return { data };
 }
 
+export async function executeKanbansGet(args: { id: string; output?: string; quiet?: boolean }): Promise<any> {
+  const client = await getClient();
+  const data = await client.getKanban(args.id);
+  return { data };
+}
+
 export const kanbansCommand = new Command('kanbans')
   .description('Manage kanbans (portfolio, program, solution, team)')
   .addCommand(new Command('list')
@@ -42,12 +48,21 @@ export const kanbansCommand = new Command('kanbans')
       const result = await executeKanbansCreate(options);
       console.log(formatOutput(result.data, options));
     }))
-  .addCommand(new Command('update')
-    .description('Update a kanban')
-    .option('--file <path>', 'JSON file with updated data')
-    .option('--output <format>', 'Output format: json or pretty', 'json')
-    .option('--quiet', 'Suppress output')
-    .action(async (options) => {
-      const result = await executeKanbansUpdate(options);
-      console.log(formatOutput(result.data, options));
-    }));
+   .addCommand(new Command('update')
+     .description('Update a kanban')
+     .option('--file <path>', 'JSON file with updated data')
+     .option('--output <format>', 'Output format: json or pretty', 'json')
+     .option('--quiet', 'Suppress output')
+     .action(async (options) => {
+       const result = await executeKanbansUpdate(options);
+       console.log(formatOutput(result.data, options));
+     }))
+   .addCommand(new Command('get')
+     .description('Get a kanban by ID')
+     .argument('<id>', 'Kanban ID')
+     .option('--output <format>', 'Output format: json or pretty', 'json')
+     .option('--quiet', 'Suppress output')
+     .action(async (id, options) => {
+       const result = await executeKanbansGet({ id, ...options });
+       console.log(formatOutput(result.data, options));
+     }));
