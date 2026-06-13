@@ -1,9 +1,10 @@
 # Kvasar Agile Management CLI
+
 **AI-native, JSON-first CLI for Kvasar Agile Management.**
 
-https://landing.kvasar.tech
+<https://landing.kvasar.tech>
 
->Kvasar Agile Management has a powerful web platform for agile planning and SAFe execution — but there is no dedicated developer CLI for interacting with agile entities, AI workflows, portfolio planning, ARTs, PIs, epics, features, sprints, dependencies, or Jira integrations directly from the terminal.
+> Kvasar Agile Management has a powerful web platform for agile planning and SAFe execution — but there is no dedicated developer CLI for interacting with agile entities, AI workflows, portfolio planning, ARTs, PIs, epics, features, sprints, dependencies, or Jira integrations directly from the terminal.
 
 Kvasar CLI brings agile operations into:
 
@@ -28,7 +29,7 @@ Built for:
 ### Installation
 
 ```bash
-npm install -g kvasar-cli
+npm install -g @kvasar/cli
 # or
 npm link  # from source
 ```
@@ -90,21 +91,20 @@ All commands support:
 
 ## Command Groups
 
-- `kvasar value-streams` - Full CRUD + stages, solutions, arts, copy
-- `kvasar strategic-themes` - Full CRUD + keyresults, budgetdistribution
-- `kvasar solutions` - Full CRUD + relations
-- `kvasar pis` - Program Increments (get, update, delete, add-sprint)
-- `kvasar portfolios` - List, create, update
-- `kvasar organizations` - Get, update, delete, patch
-- `kvasar items` - Get, update, delete, patch, add-relation (for epics, features, stories, etc.)
-- `kvasar epics` - List epics with filtering (organization, portfolio, state)
-- `kvasar teams` - List, create, update
-- `kvasar users` - List, create, update
-- `kvasar arts` - List, create, update (Agile Release Trains)
-- `kvasar kpis` - List, create, update
-- `kvasar kanbans` - List, create, update (portfolio, program, solution, team)
-- `kvasar objectives` - List, update
-
+- `kvasar value-streams` — Full CRUD + stages, solutions, arts, copy
+- `kvasar strategic-themes` — Full CRUD + keyresults, budgetdistribution
+- `kvasar solutions` — Full CRUD + relations
+- `kvasar pis` — Program Increments (get, update, delete, add-sprint)
+- `kvasar portfolios` — List, create, update
+- `kvasar organizations` — Get, update, delete, patch
+- `kvasar items` — Get, update, delete, patch, add-relation (for epics, features, stories, etc.)
+- `kvasar epics` — List epics with filtering (organization, portfolio, state)
+- `kvasar teams` — List, create, update
+- `kvasar users` — List, create, update
+- `kvasar arts` — List, create, update (Agile Release Trains)
+- `kvasar kpis` — List, create, update
+- `kvasar kanbans` — List, create, update (portfolio, program, solution, team)
+- `kvasar objectives` — List, update
 
 ## Development
 
@@ -116,6 +116,45 @@ npm run typecheck
 ```
 
 See [CLI_IMPLEMENTATION.md](CLI_IMPLEMENTATION.md) for full implementation details.
+
+## Publishing
+
+### Build
+
+```bash
+npm run build
+```
+
+### Pre-publish validation
+
+```bash
+npm pack --dry-run  # Inspect what will be published
+npm pack            # Create .tgz for manual inspection
+```
+
+### Publish
+
+```bash
+npm publish          # Uses prepublishOnly → build + typecheck first
+npm publish --tag beta  # For pre-release versions
+```
+
+### Version bumping
+
+```bash
+npm run version:patch  # 0.2.0 → 0.2.1
+npm run version:minor  # 0.2.0 → 0.3.0
+npm run version:major  # 0.2.0 → 1.0.0
+```
+
+### Release checklist
+
+1. Update version with one of the `npm run version:*` scripts
+2. Run `npm pack --dry-run` and verify the file list
+3. Run `npm pack` and inspect the `.tgz` manually
+4. Publish with `npm publish`
+5. Verify installation from a clean directory: `npm install -g @kvasar/cli`
+6. Tag the release in git: `git tag v<version> && git push --tags`
 
 ## License
 
