@@ -26,6 +26,7 @@ import { authChangeCommand } from './auth-change.js';
  import { productsCommand } from './products.js';
  import { servicesCommand } from './services.js';
  import { systemsCommand } from './systems.js';
+import { updateCommand } from './update.js';
 
 /**
  * Register all CLI commands
@@ -57,4 +58,5 @@ export function registerAllCommands(program: Command): void {
      program.addCommand(productsCommand);
      program.addCommand(servicesCommand);
      program.addCommand(systemsCommand);
+     program.addCommand(updateCommand);
  }

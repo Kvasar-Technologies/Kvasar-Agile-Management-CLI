@@ -1,6 +1,7 @@
 import { Command } from 'commander';
 import { registerAllCommands } from './commands/index.js';
 import { authService } from './core/auth.js';
+import { backgroundUpdateCheck } from './update/index.js';
 
 const program = new Command();
 
@@ -46,7 +47,10 @@ async function main() {
   try {
     // Parse arguments and execute command
     await program.parseAsync();
-    process.exit(0);
+
+    // Non-blocking update check — runs after command output
+    // Fires in the background; never blocks CLI execution
+    backgroundUpdateCheck().finally(() => process.exit(0));
   } catch (error) {
     console.error(error instanceof Error ? error.message : String(error));
     process.exit(1);
