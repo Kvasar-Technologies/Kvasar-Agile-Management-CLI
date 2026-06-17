@@ -23,6 +23,16 @@ Built for:
 - AI Agents
 - Enterprise Automation
 
+## AI Model Compatibility
+
+> ⚠️ Known performance issues with specific models when used in a skill
+
+The following model has been observed to have **low performance** when used with this plugin inside a skill:
+
+| Model | Performance | Note |
+|-------|-------------|------|
+| `Mistralai/mistral-nemotron` | Low | Poor performance when used in a skill |
+
 ## Quick Start
 
 ### Installation
@@ -149,6 +159,7 @@ kasar kanbans get <kanban-id>
 # Arts
 kvasar arts list
 kvasar arts create --file data.json
+kvasar arts assign --feature KV-101 --art ART-1 --status "In Progress"
 
 # Get Program Kanban
 kasar kanbans get <kanban-id>
@@ -251,7 +262,7 @@ All commands support:
 - `kvasar issue create` - Create issue
 - `kvasar teams` - List, create, update
 - `kvasar users` - List, create, update
-- `kvasar arts` - List, create, update (Agile Release Trains)
+- `kvasar arts` - List, create, update, assign (Agile Release Trains)
 - `kvasar kpis` - List, create, update
 - `kvasar kanbans` - List, create, update (portfolio, program, solution, team)
 - `kvasar objectives` - List, update

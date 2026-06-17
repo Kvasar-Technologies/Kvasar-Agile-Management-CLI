@@ -26,7 +26,7 @@ All core API endpoints have been implemented as CLI commands with the following 
 - `kvasar kpis` - list, create, update
 - `kvasar kanbans` - list, create, update
 - `kvasar objectives` - list, update
-- `kvasar arts` - list, create, update
+- `kvasar arts` - list, create, update, assign
 - `kvasar auth-change` - password, name
 
 ## Usage

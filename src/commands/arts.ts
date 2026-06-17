@@ -23,6 +23,13 @@ export async function executeARTsUpdate(args: { file?: string; output?: string; 
   return { data };
 }
 
+export async function executeARTsAssign(args: { feature: string; art: string; status: string; output?: string; quiet?: boolean }): Promise<any> {
+  const client = await getClient();
+  const body = { featureKey: args.feature, status: args.status };
+  const data = await client.assignFeatureToArt(args.art, body);
+  return { data };
+}
+
 export const artsCommand = new Command('arts')
   .description('Manage Agile Release Trains (ARTs)')
   .addCommand(new Command('list')
@@ -49,5 +56,16 @@ export const artsCommand = new Command('arts')
     .option('--quiet', 'Suppress output')
     .action(async (options) => {
       const result = await executeARTsUpdate(options);
+      console.log(formatOutput(result.data, options));
+    }))
+  .addCommand(new Command('assign')
+    .description('Assign a feature to an ART')
+    .requiredOption('--feature <key>', 'Feature key (e.g. KV-101)')
+    .requiredOption('--art <key>', 'ART key (e.g. ART-1)')
+    .requiredOption('--status <status>', 'Status for the assignment (e.g. "In Progress")')
+    .option('--output <format>', 'Output format: json or pretty', 'json')
+    .option('--quiet', 'Suppress output')
+    .action(async (options) => {
+      const result = await executeARTsAssign(options);
       console.log(formatOutput(result.data, options));
     }));
