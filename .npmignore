@@ -1,0 +1,29 @@
+# Source
+src/
+tests/
+
+# Dev tooling
+tsconfig.json
+tsup.config.ts
+vitest.config.*
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Documentation (published in README only)
+CLI_IMPLEMENTATION.md
+PAYMENT_CLI_PROPOSAL.md
+kvasar-qualified-leads.md
+api-docs.txt
+*.md
+!.README.md
+
+# Agent configs (NOT for production users)
+AGENTS:md
+CLAUDE.md
+
+# Build artifacts (only dist/ is needed)
+node_modules/
+*.tsbuildinfo
