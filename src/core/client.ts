@@ -180,7 +180,9 @@ export class KvasarClient {
   }
 
   async patchStrategicTheme(id: string, body: any): Promise<any> {
-    return this.patch(`/api/v1/strategicthemes/${id}`, body);
+    return this.patch(`/api/v1/strategicthemes/${id}`, body, {
+      headers: { 'Content-Type': 'application/json-patch+json' }
+    });
   }
 
   async addKeyResult(strategicThemeId: string, keyResult: any): Promise<any> {
@@ -213,30 +215,31 @@ export class KvasarClient {
   }
 
   async patchSolution(id: string, body: any): Promise<any> {
-    return this.patch(`/api/v1/solutions/${id}`, body);
+    return this.patch(`/api/v1/solutions/${id}`, body, {
+      headers: { 'Content-Type': 'application/json-patch+json' }
+    });
   }
 
     async addRelation(solutionId: string, relation: any): Promise<any> {
       return this.put(`/api/v1/solutions/${solutionId}/relations`, relation);
     }
 
-    async listSolutionsByType(type: string): Promise<any> {
-      return this.get(`/api/v1/solutions/?type=${encodeURIComponent(type)}`);
+    async listSolutionsByType(type: string, filters?: {
+      organizationId?: string;
+      customerType?: string;
+      contextType?: string;
+      solutionManagerId?: string;
+    }): Promise<any> {
+      const params = new URLSearchParams({ type });
+      if (filters) {
+        if (filters.organizationId) params.append('organizationId', filters.organizationId);
+        if (filters.customerType) params.append('customerType', filters.customerType);
+        if (filters.contextType) params.append('contextType', filters.contextType);
+        if (filters.solutionManagerId) params.append('solutionManagerId', filters.solutionManagerId);
+      }
+      return this.get(`/api/v1/solutions/?${params.toString()}`);
     }
-
-    // ========== Roadmaps ==========
-  async listRoadmaps(): Promise<any> {
-    return this.get('/api/v1/roadmaps/');
-  }
-
-  async createRoadMap(body: any): Promise<any> {
-    return this.post('/api/v1/roadmaps/', body);
-  }
-
-  async updateRoadMap(body: any): Promise<any> {
-    return this.put('/api/v1/roadmaps/', body);
-  }
-
+ 
   // ========== Portfolios ==========
   async listPortfolios(): Promise<any> {
     return this.get('/api/v1/portfolios/');
@@ -268,7 +271,15 @@ export class KvasarClient {
   }
 
   // ========== Organizations ==========
-  async getOrganization(id: string): Promise<any> {
+   async listOrganizations(): Promise<any> {
+     return this.get('/api/v1/organizations/');
+   }
+
+   async createOrganization(body: any): Promise<any> {
+     return this.post('/api/v1/organizations/', body);
+   }
+
+   async getOrganization(id: string): Promise<any> {
     return this.get(`/api/v1/organizations/${id}`);
   }
 
@@ -280,14 +291,66 @@ export class KvasarClient {
     return this.delete(`/api/v1/organizations/${id}`);
   }
 
-  async patchOrganization(id: string, body: any): Promise<any> {
-    return this.patch(`/api/v1/organizations/${id}`, body);
-  }
+   async patchOrganization(id: string, body: any): Promise<any> {
+     return this.patch(`/api/v1/organizations/${id}`, body, {
+       headers: { 'Content-Type': 'application/json-patch+json' }
+     });
+   }
 
   // ========== Items ==========
+  async listItems(filters: {
+  // Pagination
+  page?: number;
+  size?: number;
+  sort?: string;
+  // Hierarchy
+  parentId?: string;
+  kanbanId?: string;
+  // Type & State
+  name?: string;              // discriminator: epic, feature, userstory, defect, spike, issue...
+  itemType?: string;          // BUSINESS or ENABLER
+  columnId?: string;          // kanban column/state
+  // Content
+  itemName?: string;          // regex, case-insensitive
+  description?: string;       // regex, case-insensitive
+  // Ownership & Portfolio
+  ownerId?: string;
+  portfolioId?: string;
+} = {}): Promise<any> {
+  const query = new URLSearchParams();
+
+  // Pagination
+  if (filters.page !== undefined) query.set('page', filters.page.toString());
+  if (filters.size !== undefined) query.set('size', filters.size.toString());
+  if (filters.sort) query.set('sort', filters.sort);
+
+  // Hierarchy
+  if (filters.parentId) query.set('parent', filters.parentId);
+  if (filters.kanbanId) query.set('kanbanId', filters.kanbanId);
+
+  // Type & State
+  if (filters.name) query.set('name', filters.name);
+  if (filters.itemType) query.set('itemType', filters.itemType);
+  if (filters.columnId) query.set('columnId', filters.columnId);
+
+  // Content search (regex)
+  if (filters.itemName) query.set('itemName', filters.itemName);
+  if (filters.description) query.set('description', filters.description);
+
+  // Ownership
+  if (filters.ownerId) query.set('ownerId', filters.ownerId);
+  if (filters.portfolioId) query.set('portfolioId', filters.portfolioId);
+
+  const queryString = query.toString();
+  return this.get(`/api/v1/items/paging/${queryString ? `?${queryString}` : ''}`);
+}
   async getItem(id: string): Promise<any> {
     return this.get(`/api/v1/items/${id}`);
   }
+  
+  async getItemByKey(key: string): Promise<any> {
+     return this.get(`/api/v1/items/key/${key}`);
+   }
 
   async updateItem(id: string, body: any): Promise<any> {
     return this.put(`/api/v1/items/${id}`, body);
@@ -297,24 +360,46 @@ export class KvasarClient {
     return this.delete(`/api/v1/items/${id}`);
   }
 
-  async patchItem(id: string, body: any): Promise<any> {
-    return this.patch(`/api/v1/items/${id}`, body);
-  }
-
-   async addItemRelation(featureId: string, relation: any): Promise<any> {
-     return this.put(`/api/v1/items/${featureId}/relations`, relation);
+   async patchItem(id: string, body: any): Promise<any> {
+     return this.patch(`/api/v1/items/${id}`, body, {
+       headers: { 'Content-Type': 'application/json-patch+json' }
+     });
    }
 
-   // ========== Epics ==========
+    async addItemRelation(featureId: string, relation: any): Promise<any> {
+      return this.put(`/api/v1/items/${featureId}/relations`, relation);
+    }
+
+    async getChildren(parentId: string): Promise<any> {
+      return this.get(`/api/v1/items/${parentId}/children`);
+    }
+
+    // ========== Epics ==========
    async listEpics(): Promise<any> {
      return this.get('/api/v1/items/epics/');
    }
 
-   async createEpic(body: any): Promise<any> {
-     return this.post('/api/v1/items/epics/', body);
-   }
+    async createEpic(body: any): Promise<any> {
+      return this.post('/api/v1/items/', body);
+    }
 
-  // ========== Groups ==========
+    async createFeature(body: any): Promise<any> {
+      return this.post('/api/v1/items/', body);
+    }
+
+    async createUserStory(body: any): Promise<any> {
+      return this.post('/api/v1/items/', body);
+    }
+
+    async createEnablerStory(body: any): Promise<any> {
+      return this.post('/api/v1/items/', body);
+    }
+
+    async createIssue(body: any): Promise<any> {
+      return this.post('/api/v1/items/', body);
+    }
+
+   // ========== Groups ==========
   async listGroups(): Promise<any> {
     return this.get('/api/v1/groups/');
   }
@@ -358,6 +443,10 @@ export class KvasarClient {
     return this.post('/api/v1/kanbans/', body);
   }
 
+  async getKanban(id: string): Promise<any> {
+    return this.get(`/api/v1/kanbans/${id}`);
+  }
+
   async updateKanban(body: any): Promise<any> {
     return this.put('/api/v1/kanbans/', body);
   }
@@ -382,6 +471,10 @@ export class KvasarClient {
 
   async updateART(body: any): Promise<any> {
     return this.put('/api/v1/arts/', body);
+  }
+
+  async assignFeatureToArt(artKey: string, body: any): Promise<any> {
+    return this.post(`/api/v1/arts/${artKey}/features`, body);
   }
 
   // ========== User Settings ==========

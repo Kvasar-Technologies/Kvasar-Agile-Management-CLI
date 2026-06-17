@@ -11656,7 +11656,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+         
         ],
         "type": "object",
         "allOf": [
@@ -11732,7 +11732,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+       
         ],
         "type": "object",
         "allOf": [
@@ -11795,7 +11795,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+         
         ],
         "type": "object",
         "allOf": [
@@ -11899,7 +11899,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+       
         ],
         "type": "object",
         "allOf": [
@@ -11966,7 +11966,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+          
         ],
         "type": "object",
         "allOf": [
@@ -12087,7 +12087,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+         
         ],
         "type": "object",
         "description": "Represents a feature in the Agile framework",
@@ -12220,7 +12220,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+         
         ],
         "type": "object",
         "description": "Represents a issue",
@@ -12251,7 +12251,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+         
         ],
         "type": "object",
         "properties": {
@@ -12271,10 +12271,7 @@
               "$ref": "#/components/schemas/KeyResult"
             }
           },
-          "toKanban": {
-            "type": "boolean",
-            "description": "Boolean to kanban"
-          },
+        
           "columnId": {
             "type": "string",
             "description": "Column id where the item is found"
@@ -12529,7 +12526,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+         
         ],
         "type": "object",
         "allOf": [
@@ -12793,7 +12790,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+         
         ],
         "type": "object",
         "allOf": [
@@ -13030,7 +13027,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+         
         ],
         "type": "object",
         "allOf": [
@@ -13568,7 +13565,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+         
         ],
         "type": "object",
         "properties": {
@@ -13588,10 +13585,7 @@
               "$ref": "#/components/schemas/KeyResult"
             }
           },
-          "toKanban": {
-            "type": "boolean",
-            "description": "Boolean to kanban"
-          },
+          
           "columnId": {
             "type": "string",
             "description": "Column id where the item is found"
@@ -14614,7 +14608,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+         
         ],
         "type": "object",
         "properties": {
@@ -14634,10 +14628,7 @@
               "$ref": "#/components/schemas/KeyResult"
             }
           },
-          "toKanban": {
-            "type": "boolean",
-            "description": "Boolean to kanban"
-          },
+         
           "columnId": {
             "type": "string",
             "description": "Column id where the item is found"
@@ -14881,7 +14872,7 @@
           "ownerId",
           "parentId",
           "portfolioId",
-          "toKanban"
+         
         ],
         "type": "object",
         "properties": {
@@ -14901,10 +14892,7 @@
               "$ref": "#/components/schemas/KeyResult"
             }
           },
-          "toKanban": {
-            "type": "boolean",
-            "description": "Boolean to kanban"
-          },
+         
           "columnId": {
             "type": "string",
             "description": "Column id where the item is found"
