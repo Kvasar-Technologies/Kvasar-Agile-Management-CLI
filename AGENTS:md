@@ -117,6 +117,7 @@ list
 teams
 capacity
 sync
+assign
 ```
 
 ### ai
