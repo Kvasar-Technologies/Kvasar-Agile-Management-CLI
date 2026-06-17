@@ -473,6 +473,10 @@ export class KvasarClient {
     return this.put('/api/v1/arts/', body);
   }
 
+  async assignFeatureToArt(artKey: string, body: any): Promise<any> {
+    return this.post(`/api/v1/arts/${artKey}/features`, body);
+  }
+
   // ========== User Settings ==========
   async changePassword(body: any): Promise<any> {
     return this.put('/api/v1/change_password', body);
