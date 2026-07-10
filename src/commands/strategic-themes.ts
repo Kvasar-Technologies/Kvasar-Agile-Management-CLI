@@ -15,9 +15,36 @@ export async function executeStrategicThemesGet(args: { id: string; output?: str
   return { data };
 }
 
-export async function executeStrategicThemesCreate(args: { file?: string; output?: string; quiet?: boolean }): Promise<any> {
+export async function executeStrategicThemesCreate(args: {
+  name?: string;
+  description?: string;
+  organizationId?: string;
+  ownerId?: string;
+  strategicOwnerId?: string;
+  portfolioId?: string;
+  status?: string;
+  code?: string;
+  file?: string;
+  output?: string;
+  quiet?: boolean;
+}): Promise<any> {
   const client = await getClient();
-  const body = args.file ? JSON.parse(fs.readFileSync(args.file, 'utf-8')) : {};
+  let body: any = {};
+
+  if (args.file) {
+    body = JSON.parse(fs.readFileSync(args.file, 'utf-8'));
+  }
+
+  // Apply CLI flags on top of file-based body (CLI flags override file values)
+  if (args.name) body.name = args.name;
+  if (args.description) body.description = args.description;
+  if (args.organizationId) body.organizationId = args.organizationId;
+  if (args.ownerId) body.ownerId = args.ownerId;
+  if (args.strategicOwnerId) body.strategicOwnerId = args.strategicOwnerId;
+  if (args.portfolioId) body.portfolioId = args.portfolioId;
+  if (args.status) body.status = args.status;
+  if (args.code) body.code = args.code;
+
   const data = await client.createStrategicTheme(body);
   return { data };
 }
@@ -91,6 +118,14 @@ export const strategicThemesCommand = new Command('strategic-themes')
     }))
   .addCommand(new Command('create')
     .description('Create a new strategic theme')
+    .option('--name <name>', 'Strategic theme name')
+    .option('--description <text>', 'Strategic theme description (required by API)')
+    .option('--organization-id <id>', 'Organization ID (required by API)')
+    .option('--owner-id <id>', 'Owner user ID (required by API)')
+    .option('--strategic-owner-id <id>', 'Strategic owner user ID (required by API)')
+    .option('--portfolio-id <id>', 'Portfolio ID')
+    .option('--status <status>', 'Status')
+    .option('--code <code>', 'Short code')
     .option('--file <path>', 'JSON file with strategic theme data')
     .option('--output <format>', 'Output format: json or pretty', 'json')
     .option('--quiet', 'Suppress output')

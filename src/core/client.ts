@@ -456,8 +456,20 @@ export class KvasarClient {
     return this.get('/api/v1/objectives/');
   }
 
+  async getObjective(id: string): Promise<any> {
+    return this.get(`/api/v1/objectives/${id}`);
+  }
+
+  async createObjective(body: any): Promise<any> {
+    return this.post('/api/v1/objectives/', body);
+  }
+
   async updateObjective(body: any): Promise<any> {
     return this.put('/api/v1/objectives/', body);
+  }
+
+  async deleteObjective(id: string): Promise<any> {
+    return this.delete(`/api/v1/objectives/${id}`);
   }
 
   // ========== ARTs ==========
