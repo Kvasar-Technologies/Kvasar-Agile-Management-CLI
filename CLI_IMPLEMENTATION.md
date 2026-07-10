@@ -7,7 +7,7 @@ All core API endpoints have been implemented as CLI commands with the following 
 - `kvasar value-streams` - list, get, create, update, delete, patch, stages, add-stage, add-solutions, add-art, copy
 - `kvasar users` - list, create, update
 - `kvasar teams` - list, create, update
-- `kvasar strategic-themes` - list, get, create, update, delete, patch, add-keyresult, add-budget
+- `kvasar strategic-themes` - list, get, create (with direct --name, --description, --organization-id, --owner-id, --strategic-owner-id, --portfolio-id, --status, --code flags), update, delete, patch, add-keyresult, add-budget
 - `kvasar solutions` - list, get, create, update, delete, patch, add-relation
 - `kvasar products` - list, get, create (wraps solutions with type="product")
 - `kvasar services` - list, get, create (wraps solutions with type="service")
@@ -25,7 +25,7 @@ All core API endpoints have been implemented as CLI commands with the following 
 - `kvasar issue create` 
 - `kvasar kpis` - list, create, update
 - `kvasar kanbans` - list, create, update
-- `kvasar objectives` - list, update
+- `kvasar objectives` - list, get, create (with direct --name, --strategic-theme-id, --strategic-theme-key, --program-increment-id, --owner-id flags), update, delete
 - `kvasar arts` - list, create, update, assign
 - `kvasar auth-change` - password, name
 
@@ -39,7 +39,9 @@ All commands support these global options (inherited from `kvasar`):
 
 For create/update operations, data can be provided via:
 - `--file <path>` - JSON file containing the request body
-- For some commands, inline JSON input could be added in the future
+- Inline CLI flags (e.g., `--name`, `--description`) for commands that support them. CLI flags override values from `--file` when both are provided.
+
+Prefer inline flags for simple entity creation. Use `--file` for complex payloads with nested structures.
 
 ## Authentication
 
