@@ -17,6 +17,8 @@ Kvasar CLI brings agile operations into:
 
 Built for:
 
+- Product Owners
+- Project Managers
 - Product Managers
 - RTEs
 - Agile Coaches
